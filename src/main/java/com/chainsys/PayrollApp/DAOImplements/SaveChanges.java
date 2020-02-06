@@ -2,8 +2,7 @@ package com.chainsys.PayrollApp.DAOImplements;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
-import com.chainsys.PayrollApp.util.JdbcUtil;
+//import com.chainsys.PayrollApp.util.JdbcUtil;
 
 
 public class SaveChanges {
@@ -16,10 +15,10 @@ public class SaveChanges {
 		con.close();
 
 	}
-	public static void main(String[] args) throws Exception {
+	/*public static void main(String[] args) throws Exception {
 		String sql  = "insert into account_details values(?,?)";
 		System.out.println(sql);
 		JdbcUtil.executeUpdate(sql, 1001,12345678);
-	}
+	}*/
 
 }

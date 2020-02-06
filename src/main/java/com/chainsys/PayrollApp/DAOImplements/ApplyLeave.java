@@ -1,9 +1,8 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.PayrollApp.DAOImplements;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.DAOImplements.LeaveApplication;
 import com.chainsys.PayrollApp.Model.LeaveApplicationModel;
 
 public class ApplyLeave {
@@ -20,7 +19,7 @@ public class ApplyLeave {
 		String toDate = scan.next();
 		l.toDate = LocalDate.parse(toDate);
 		System.out.println("Enter the Reason for leave :");
-		l.reasonForLeave  = scan.next();
+		l.setReasonForLeave(scan.next());
 		scan.close();
 		return leave.applyLeave(empId,l);
 	}

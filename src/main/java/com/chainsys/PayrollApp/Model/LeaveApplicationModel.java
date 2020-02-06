@@ -8,9 +8,27 @@ public class LeaveApplicationModel {
 	{
 	APPROVED,NOT_APPROVED;	
 	}
-	public int empId;
-	public LocalDate fromDate;
-	public LocalDate toDate;
-	public String reasonForLeave;
-	public LeaveStatus status;	
+	 int empId;
+	 public LocalDate fromDate;
+	 public LocalDate toDate;
+	 String reasonForLeave;
+	 public int getEmpId() {
+		return empId;
+	}
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+	public String getReasonForLeave() {
+		return reasonForLeave;
+	}
+	public void setReasonForLeave(String reasonForLeave) {
+		this.reasonForLeave = reasonForLeave;
+	}
+	public LeaveStatus getStatus() {
+		return status;
+	}
+	public void setStatus(LeaveStatus status) {
+		this.status = status;
+	}
+	LeaveStatus status;	
 }

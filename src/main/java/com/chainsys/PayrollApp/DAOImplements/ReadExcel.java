@@ -1,4 +1,4 @@
-package com.chainsys.PayrollApp.DataAccessObject;
+package com.chainsys.PayrollApp.DAOImplements;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -13,7 +13,7 @@ import java.util.Iterator;
 public class ReadExcel 
 {
 	private static final String FILE_NAME = "credits.xlsx";
-    public static void main(String[] args) 
+    public static void AdminData() 
     {
         try 
         {

@@ -2,6 +2,9 @@ package com.chainsys.PayrollApp;
 
 import java.util.Scanner;
 
+import com.chainsys.PayrollApp.DAOImplements.ApplyLeave;
+import com.chainsys.PayrollApp.DAOImplements.LogMonitor;
+
 public class ConsultantWorkspace {
 
 	public static void main(String[] arg) throws Exception {

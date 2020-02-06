@@ -6,7 +6,7 @@ public class Logger {
 		return logger;
 	}
 
-	public void getinput(Object message) {
+	public void getInput(Object message) {
 		System.out.println(message);
 	}
 

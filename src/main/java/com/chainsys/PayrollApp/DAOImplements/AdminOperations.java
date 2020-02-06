@@ -12,7 +12,6 @@ public class AdminOperations implements AdminDAO
 {
 	public String addUsers(AdminModel a) throws Exception 
 	{
-		//Connection con = UserLogin.connect();
 		int foodDetection = 0;
 		int cabDeTection = 0;
 		String sql = "insert into employee(emp_id,emp_name,designation,"+
@@ -81,4 +80,6 @@ public class AdminOperations implements AdminDAO
 		String sql = "update user_login set passwd = 'pass123',active = 0 where emp_id = ?";
 		JdbcUtil.executeUpdate(sql,empId);
 	}
+
+
 }

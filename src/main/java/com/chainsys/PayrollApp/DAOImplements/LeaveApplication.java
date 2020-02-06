@@ -3,7 +3,6 @@ package com.chainsys.PayrollApp.DAOImplements;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import com.chainsys.PayrollApp.SendMailSSL;
 import com.chainsys.PayrollApp.Model.LeaveApplicationModel;
 import com.chainsys.PayrollApp.Model.LeaveApplicationModel.LeaveStatus;
 
@@ -19,7 +18,7 @@ public class LeaveApplication {
 		pst.setDate(2,date);
 		java.sql.Date dat = java.sql.Date.valueOf(l.toDate);
 		pst.setDate(3, dat);
-		pst.setString(4,l.reasonForLeave);
+		pst.setString(4,l.getReasonForLeave());
 		int rows = pst.executeUpdate();
 		con.close();
 		if(rows!=0)

@@ -1,10 +1,10 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.PayrollApp.DAOImplements;
 
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.activation.DataHandler;
-import javax.activation.FileDataSource;
+//import javax.activation.DataHandler;
+//import javax.activation.FileDataSource;
 import javax.mail.*;    
 import javax.mail.internet.*;    
 public class SendMailSSL
@@ -41,10 +41,10 @@ public class SendMailSSL
         	BodyPart messageBodyPart5 = new MimeBodyPart(); 
         	messageBodyPart5.setText("\n\t Team Payroll...");
 
-        	String filename = "SendAttachment.java";  
+        /*	String filename = "SendAttachment.java";  
         	FileDataSource source = new FileDataSource("./src/test/java/com/chainsys/PayrollApp/SendMailSSL.java");  
         	messageBodyPart2.setDataHandler(new DataHandler(source));  
-        	messageBodyPart2.setFileName(filename);  
+        	messageBodyPart2.setFileName(filename);  */
             
         	Multipart multipart = new MimeMultipart();  
         	multipart.addBodyPart(messageBodyPart1);  

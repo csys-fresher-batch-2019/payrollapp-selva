@@ -1,9 +1,7 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.PayrollApp.DAOImplements;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
-
-import com.chainsys.PayrollApp.DAOImplements.UserLogin;
 
 public class LogMonitor {
 

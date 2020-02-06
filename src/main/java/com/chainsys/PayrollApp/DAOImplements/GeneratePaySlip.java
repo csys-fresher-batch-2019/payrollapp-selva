@@ -1,8 +1,6 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.PayrollApp.DAOImplements;
 import java.util.ArrayList;
 
-
-import com.chainsys.PayrollApp.DAOImplements.PaySlip;
 import com.chainsys.PayrollApp.Model.PaySlipModel;
 import com.itextpdf.kernel.pdf.PdfDocument; 
 import com.itextpdf.kernel.pdf.PdfWriter; 
@@ -31,25 +29,25 @@ public class GeneratePaySlip
 		    table.addCell("Employee Name"); 
 		    table.addCell(obj.getName()); 
 		    table.addCell("BasePay");
-		    table.addCell(""+obj.getSalary());
+		    table.addCell("Rs. "+obj.getSalary());
 		    table.addCell("Performance_grade");
-		    table.addCell(""+obj.getPerformanceGrade());
+		    table.addCell("Rs. "+obj.getPerformanceGrade());
 		    table.addCell("Salary Increment");
-		    table.addCell(""+obj.getSalaryIncrement());
+		    table.addCell("Rs. "+obj.getSalaryIncrement());
 		    table.addCell("Allowance");
-		    table.addCell(""+obj.getAllowance());
+		    table.addCell("Rs. "+obj.getAllowance());
 		    table.addCell("Leaves Taken");
 		    table.addCell(""+obj.getLeavesTaken());
 		    table.addCell("Loss Of Pay");
-		    table.addCell(""+obj.getLossOfPay());
+		    table.addCell("Rs. "+obj.getLossOfPay());
 		    table.addCell("Food_detection");
-		    table.addCell(""+obj.getFoodDeduction());
+		    table.addCell("Rs. "+obj.getFoodDeduction());
 		    table.addCell("Cab Deduction");
-		    table.addCell(""+obj.getCabDeduction());
+		    table.addCell("Rs. "+obj.getCabDeduction());
 		    table.addCell("Provident Fund");
-		    table.addCell(""+obj.getProvidentFund());
+		    table.addCell("Rs. "+obj.getProvidentFund());
 		    table.addCell("Salary Take Home"); 
-		    table.addCell(""+obj.getSalaryToBeCredited());
+		    table.addCell("Rs. "+obj.getSalaryToBeCredited());
 		    doc.add(table);
 
 		}

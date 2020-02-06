@@ -14,18 +14,18 @@ public class LoginPage
 	{
 		while(true) 
 		{						
-			logger.getinput("Enter your id : ");
+			logger.getInput("Enter your id : ");
 			int EmpId = obj.nextInt();
-			logger.getinput("Enter the Password : ");
+			logger.getInput("Enter the Password : ");
 			String password = obj.next();
 			int result = UserLogin.login(EmpId, password);
 			if(result == 1)
 				continue;
 			else if(result == 2)
 			{
-				logger.getinput("Enter the new Password : ");
+				logger.getInput("Enter the new Password : ");
 				String newPassword = obj.next();
-				logger.getinput("Confirm new Password : ");
+				logger.getInput("Confirm new Password : ");
 				String conPassword = obj.next();
 				if(UserLogin.UpdatePassword(newPassword,conPassword,EmpId))
 					logger.info("Updated !");

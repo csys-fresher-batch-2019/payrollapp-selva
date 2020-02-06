@@ -5,10 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.chainsys.PayrollApp.DataAccessObject.HrDAO;
 import com.chainsys.PayrollApp.Model.HrModel;
 import com.chainsys.PayrollApp.util.JdbcUtil;
 
-public class HrOperations 
+public class HrOperations implements HrDAO
 {
 	public String addGrade(int id,int grade) throws Exception
 	{
