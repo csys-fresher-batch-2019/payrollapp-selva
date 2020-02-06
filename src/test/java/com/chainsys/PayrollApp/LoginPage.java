@@ -2,9 +2,9 @@ package com.chainsys.PayrollApp;
 
 
 import java.util.Scanner;
-import com.chainsys.PayrollApp.util.Logger;
 
-import com.chainsys.PayrollApp.DAOImplements.UserLogin;
+import com.chainsys.PayrollApp.daoimplements.UserLogin;
+import com.chainsys.PayrollApp.util.Logger;
 
 public class LoginPage 
 {

@@ -1,6 +1,6 @@
-package com.chainsys.PayrollApp.DataAccessObject;
+package com.chainsys.PayrollApp.dao;
 
-import com.chainsys.PayrollApp.Model.*;
+import com.chainsys.PayrollApp.model.*;
 public interface AdminDAO {
 	
 	String addUsers(AdminModel a) throws Exception;

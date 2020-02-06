@@ -1,10 +1,10 @@
-package com.chainsys.PayrollApp.DAOImplements;
+package com.chainsys.PayrollApp.daoimplements;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import com.chainsys.PayrollApp.Model.LeaveApplicationModel;
-import com.chainsys.PayrollApp.Model.LeaveApplicationModel.LeaveStatus;
+import com.chainsys.PayrollApp.model.LeaveApplicationModel;
+import com.chainsys.PayrollApp.model.LeaveApplicationModel.LeaveStatus;
 
 public class LeaveApplication {
 	

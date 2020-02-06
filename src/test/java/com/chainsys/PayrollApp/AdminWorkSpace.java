@@ -1,8 +1,9 @@
 package com.chainsys.PayrollApp;
 
 import java.util.Scanner;
-import com.chainsys.PayrollApp.DAOImplements.*;
-import com.chainsys.PayrollApp.Model.*;
+
+import com.chainsys.PayrollApp.daoimplements.*;
+import com.chainsys.PayrollApp.model.*;
 import com.chainsys.PayrollApp.util.Logger;
 
 public class AdminWorkSpace {

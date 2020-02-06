@@ -1,11 +1,11 @@
-package com.chainsys.PayrollApp.DAOImplements;
+package com.chainsys.PayrollApp.daoimplements;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.chainsys.PayrollApp.DataAccessObject.*;
-import com.chainsys.PayrollApp.Model.*;
+import com.chainsys.PayrollApp.dao.*;
+import com.chainsys.PayrollApp.model.*;
 import com.chainsys.PayrollApp.util.JdbcUtil;
 
 public class AdminOperations implements AdminDAO 

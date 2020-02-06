@@ -1,4 +1,4 @@
-package com.chainsys.PayrollApp.DAOImplements;
+package com.chainsys.PayrollApp.daoimplements;
 
 import java.io.IOException;
 import java.util.Properties;

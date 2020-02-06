@@ -1,7 +1,7 @@
-package com.chainsys.PayrollApp.DAOImplements;
+package com.chainsys.PayrollApp.daoimplements;
 import java.util.ArrayList;
 
-import com.chainsys.PayrollApp.Model.PaySlipModel;
+import com.chainsys.PayrollApp.model.PaySlipModel;
 import com.itextpdf.kernel.pdf.PdfDocument; 
 import com.itextpdf.kernel.pdf.PdfWriter; 
  

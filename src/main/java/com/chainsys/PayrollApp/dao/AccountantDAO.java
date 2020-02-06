@@ -1,4 +1,4 @@
-package com.chainsys.PayrollApp.DataAccessObject;
+package com.chainsys.PayrollApp.dao;
 
 public interface AccountantDAO 
 {

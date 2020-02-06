@@ -1,12 +1,12 @@
-package com.chainsys.PayrollApp.DAOImplements;
+package com.chainsys.PayrollApp.daoimplements;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.chainsys.PayrollApp.DataAccessObject.HrDAO;
-import com.chainsys.PayrollApp.Model.HrModel;
+import com.chainsys.PayrollApp.dao.HrDAO;
+import com.chainsys.PayrollApp.model.HrModel;
 import com.chainsys.PayrollApp.util.JdbcUtil;
 
 public class HrOperations implements HrDAO

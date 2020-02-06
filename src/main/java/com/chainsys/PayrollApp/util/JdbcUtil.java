@@ -3,7 +3,7 @@ package com.chainsys.PayrollApp.util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import com.chainsys.PayrollApp.DAOImplements.UserLogin;
+import com.chainsys.PayrollApp.daoimplements.UserLogin;
 
 public class JdbcUtil {
 

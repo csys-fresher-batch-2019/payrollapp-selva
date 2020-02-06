@@ -2,8 +2,8 @@ package com.chainsys.PayrollApp;
 
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.DAOImplements.ApplyLeave;
-import com.chainsys.PayrollApp.DAOImplements.LogMonitor;
+import com.chainsys.PayrollApp.daoimplements.ApplyLeave;
+import com.chainsys.PayrollApp.daoimplements.LogMonitor;
 import com.chainsys.PayrollApp.util.Logger;
 
 

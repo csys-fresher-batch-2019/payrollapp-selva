@@ -3,11 +3,11 @@ package com.chainsys.PayrollApp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.DAOImplements.ApplyLeave;
-import com.chainsys.PayrollApp.DAOImplements.HrOperations;
-import com.chainsys.PayrollApp.DAOImplements.LeaveApplication;
-import com.chainsys.PayrollApp.DAOImplements.LogMonitor;
-import com.chainsys.PayrollApp.Model.HrModel;
+import com.chainsys.PayrollApp.daoimplements.ApplyLeave;
+import com.chainsys.PayrollApp.daoimplements.HrOperations;
+import com.chainsys.PayrollApp.daoimplements.LeaveApplication;
+import com.chainsys.PayrollApp.daoimplements.LogMonitor;
+import com.chainsys.PayrollApp.model.HrModel;
 public class HrWorkSpace {
 	static Scanner scan = new Scanner(System.in);
 	static HrModel hr = new HrModel();

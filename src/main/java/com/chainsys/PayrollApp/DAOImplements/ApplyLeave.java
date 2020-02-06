@@ -1,9 +1,9 @@
-package com.chainsys.PayrollApp.DAOImplements;
+package com.chainsys.PayrollApp.daoimplements;
 
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.Model.LeaveApplicationModel;
+import com.chainsys.PayrollApp.model.LeaveApplicationModel;
 
 public class ApplyLeave {
 	public String testApplyLeave(String args) throws Exception 

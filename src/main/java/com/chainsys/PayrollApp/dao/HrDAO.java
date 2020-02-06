@@ -1,7 +1,8 @@
-package com.chainsys.PayrollApp.DataAccessObject;
+package com.chainsys.PayrollApp.dao;
 
 import java.util.ArrayList;
-import com.chainsys.PayrollApp.Model.HrModel;
+
+import com.chainsys.PayrollApp.model.HrModel;
 
 public interface HrDAO 
 {

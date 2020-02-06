@@ -1,4 +1,4 @@
-package com.chainsys.PayrollApp.Model;
+package com.chainsys.PayrollApp.model;
 
 public class PaySlipModel {
 	private int empId;
