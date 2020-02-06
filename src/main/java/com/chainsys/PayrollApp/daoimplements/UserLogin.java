@@ -6,6 +6,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import com.chainsys.PayrollApp.*;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67122e3506ad695fb5d9b8f5b6b8b6789eef1c68
 
 public class UserLogin 
 {
