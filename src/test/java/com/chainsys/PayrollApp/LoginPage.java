@@ -18,10 +18,9 @@ public class LoginPage
 			int EmpId = obj.nextInt();
 			logger.getInput("Enter the Password : ");
 			String password = obj.next();
-			int result = UserLogin.login(EmpId, password);
-			if(result == 1)
-				continue;
-			else if(result == 2)
+			String result = UserLogin.login(EmpId, password);
+			String[] arg = {""+EmpId};
+			if(result.equals("activate"))
 			{
 				logger.getInput("Enter the new Password : ");
 				String newPassword = obj.next();
@@ -32,10 +31,31 @@ public class LoginPage
 				else
 					logger.info("Update Failure");
 			}
-			else if(result == 3)
+			else if(result.equals("wrong password"))
 				logger.info("Incorrect Password. If you Forgot your password Contact Your Admin ! ");
-			else if(result == 4)
+			else if(result.equals("Not a user"))
 				logger.info("Access Denied! Contact Your Admin !");
+			else
+			{
+				switch(result) 
+				{
+					case "ADMIN":
+						AdminWorkSpace.main(arg);
+						break;
+					case "CONSULTANT":
+						ConsultantWorkspace.main(arg);
+						break;
+					case "DEVELOPER":
+						DeveloperWorkspace.main(arg);
+						break;
+					case "ACCOUNTANT":
+						AccountantWorkSpace.main(arg);
+						break;
+					case "HR":
+						HrWorkSpace.main(arg);
+						break;
+				}
+			}
 		}
 	}
 }

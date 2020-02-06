@@ -15,7 +15,7 @@ public class DeveloperWorkspace {
 		Scanner scan = new Scanner(System.in);
 		while(true)
 		{
-			logger.getInput("Press 1 to Apply Leave \nPress 2 Swipe  \nPress 3 to exit ");
+			logger.info("Press 1 to Apply Leave \nPress 2 Swipe  \nPress 3 to exit ");
 			logger.getInput("Enter Your choice : ");
 			int choice = scan.nextInt();
 			switch(choice)
