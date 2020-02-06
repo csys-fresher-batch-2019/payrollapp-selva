@@ -1,0 +1,10 @@
+language: java
+addons:
+  sonarcloud:
+    organization: "csys-fresher-batch-2019"
+    token:
+      secure: "a5322a09d51b29d219c9f2450d7a5cea2dc40442"
+
+script:
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=csys-fresher-batch-2019_payrollapp-selva
