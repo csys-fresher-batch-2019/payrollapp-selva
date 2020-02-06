@@ -5,11 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import com.chainsys.PayrollApp.AccountantWorkSpace;
-import com.chainsys.PayrollApp.AdminWorkSpace;
-import com.chainsys.PayrollApp.ConsultantWorkspace;
-import com.chainsys.PayrollApp.DeveloperWorkspace;
-import com.chainsys.PayrollApp.HrWorkSpace;
+import com.chainsys.PayrollApp.*;
+
 
 public class UserLogin 
 {
