@@ -26,10 +26,7 @@ public class LoginPage
 				String newPassword = obj.next();
 				logger.getInput("Confirm new Password : ");
 				String conPassword = obj.next();
-				if(UserLogin.UpdatePassword(newPassword,conPassword,EmpId))
-					logger.info("Updated !");
-				else
-					logger.info("Update Failure");
+				UserLogin.UpdatePassword(newPassword,conPassword,EmpId);
 			}
 			else if(result.equals("wrong password"))
 				logger.info("Incorrect Password. If you Forgot your password Contact Your Admin ! ");
