@@ -2,32 +2,32 @@ package com.chainsys.PayrollApp;
 
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.daoimplements.ApplyLeave;
 import com.chainsys.PayrollApp.daoimplements.LogMonitor;
+import com.chainsys.PayrollApp.util.Logger;
 
 public class ConsultantWorkspace {
-
+	static Logger logger = Logger.getInstance();
+	static Scanner scan = new Scanner(System.in);
 	public static void main(String[] arg) throws Exception {
-		Scanner scan = new Scanner(System.in);
+
 		while(true)
 		{
-			System.out.println("===========================CONSULTANT====================================");
-			System.out.println("Press 1 to Apply Leave \nPress 2 Swipe  \nPress 3 to exit ");
-			System.out.print("Enter Your choice : ");
+			logger.info("Press 1 to Apply Leave \nPress 2 Swipe  \nPress 3 to exit ");
+			logger.getInput("Enter Your choice : ");
 			int choice = scan.nextInt();
 			switch(choice)
 			{
 				case 1 :ApplyLeave leave = new ApplyLeave();
-						System.out.print(leave.testApplyLeave(arg[0]));
+						logger.info(leave.testApplyLeave(arg[0]));
 						break;
 				case 2 :LogMonitor lm = new LogMonitor();
 						int id = Integer.parseInt(arg[0]);
-						System.out.println(lm.swipe(id));
+						logger.info(lm.swipe(id));
 						break;
 				case 3 :return;
-				default : System.out.println("Invalid input");
+				default : logger.info("Invalid input");
 						break;
 			}
-		}	
+		}
 	}
 }

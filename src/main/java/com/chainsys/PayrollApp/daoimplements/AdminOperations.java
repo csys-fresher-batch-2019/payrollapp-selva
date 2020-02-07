@@ -12,36 +12,66 @@ public class AdminOperations implements AdminDAO
 {
 	public String addUsers(AdminModel a) throws Exception 
 	{
-		int foodDetection = 0;
-		int cabDeTection = 0;
 		String sql = "insert into employee(emp_id,emp_name,designation,"+
 		"leaves_taken,salary,total_leaves,food,cab_facility,email,experience)"+
 		"values(?,?,?,0,0,12,?,?,?,0)";
-		Object[] params = { a.empId , a.empName, a.designation,a.foodFacility,a.cabFacility,a.email};
-		int rows = JdbcUtil.executeUpdate(sql,params);
-		if(a.foodFacility.equals("Y") && a.cabFacility.equals("Y"))
-		{
-			foodDetection = 500;
-			cabDeTection = 2000;
-		}
-		else if(a.foodFacility.equals("Y") && a.cabFacility.equals("N"))
-		{
-			foodDetection = 500;
-			cabDeTection = 0;		}
-		else if(a.foodFacility.equals("N") && a.cabFacility.equals("Y"))
-		{
-			foodDetection = 0;
-			cabDeTection = 2000;
-		}
-		String sql1 = "insert into deductions(emp_id,food_deduction,cab_deduction,loss_of_pay,provident_fund)values(?,?,?,0,0)";
-		int row = JdbcUtil.executeUpdate(sql1,a.empId,foodDetection,cabDeTection);
-		String sql2 = "insert into user_login(emp_id,passwd,designation)values(?,'pass123',?)";
-		int rows1 = JdbcUtil.executeUpdate(sql2, a.empId , a.designation );
-		String sql3 = "insert into credits(emp_id)values(?)";
-		int r = JdbcUtil.executeUpdate(sql3,a.empId);
-		JdbcUtil.executeUpdate("insert into biometrices(emp_id,swipe_coun)values(?,0)",a.empId);
-		JdbcUtil.executeUpdate("insert into final_salary(emp_id)values(?)",a.empId);
+		Object[] params = { a.getEmpId() , a.getEmpName(), a.getDesignation(),a.getFoodFacility(),a.getCabFacility(),a.getEmail()};
+		JdbcUtil.executeUpdate(sql,params);
+		
+		insertDeductionDetails(a);
+		
+		insertLoginDetails(a);
+		
+		insertCreditDetails(a);
+		
+		insertBoiDetails(a);
+		
+		insertSalaryDetails(a);
+		
 		return "Sucessfully Inserted";
+	}
+
+	public void insertSalaryDetails(AdminModel a) throws Exception 
+	{
+		String sql = "insert into final_salary(emp_id)values(?)";
+		JdbcUtil.executeUpdate(sql,a.getEmpId());
+	}
+
+	public void insertBoiDetails(AdminModel a) throws Exception 
+	{
+		String sql = "insert into biometrices(emp_id,swipe_coun)values(?,0)";
+		JdbcUtil.executeUpdate(sql,a.getEmpId());
+	}
+
+	public void insertCreditDetails(AdminModel a) throws Exception {
+		String sql = "insert into credits(emp_id)values(?)";
+		JdbcUtil.executeUpdate(sql,a.getEmpId());
+	}
+
+	public void insertLoginDetails(AdminModel a) throws Exception {
+		String sql = "insert into user_login(emp_id,passwd,designation)values(?,'pass123',?)";
+		JdbcUtil.executeUpdate(sql, a.getEmpId() , a.getDesignation() );
+	}
+
+	public void insertDeductionDetails(AdminModel a ) throws Exception {
+		String sql = "insert into deductions(emp_id,food_deduction,cab_deduction,loss_of_pay,provident_fund)values(?,?,?,0,0)";
+		int foodDeduction = 0;
+		int cabDeduction = 0;
+		if(a.getFoodFacility().equals("Y") && a.getCabFacility().equals("Y"))
+		{
+			foodDeduction = 500;
+			cabDeduction = 2000;
+		}
+		else if(a.getFoodFacility().equals("Y") && a.getCabFacility().equals("N"))
+		{
+			foodDeduction = 500;
+			cabDeduction = 0;		}
+		else if(a.getFoodFacility().equals("N") && a.getCabFacility().equals("Y"))
+		{
+			foodDeduction = 0;
+			cabDeduction = 2000;
+		}
+		JdbcUtil.executeUpdate(sql,a.getEmpId(),foodDeduction,cabDeduction);
 	}
 
 	public String removeUsers(int empId) throws Exception {

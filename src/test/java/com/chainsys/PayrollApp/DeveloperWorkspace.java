@@ -2,17 +2,16 @@ package com.chainsys.PayrollApp;
 
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.daoimplements.ApplyLeave;
 import com.chainsys.PayrollApp.daoimplements.LogMonitor;
 import com.chainsys.PayrollApp.util.Logger;
 
 
 public class DeveloperWorkspace {
 	static Logger logger = Logger.getInstance();
-	public static void main(String[] arg) throws Exception {
-		
+	static Scanner scan = new Scanner(System.in);
 
-		Scanner scan = new Scanner(System.in);
+	public static void main(String[] arg) throws Exception 
+	{	
 		while(true)
 		{
 			logger.info("Press 1 to Apply Leave \nPress 2 Swipe  \nPress 3 to exit ");

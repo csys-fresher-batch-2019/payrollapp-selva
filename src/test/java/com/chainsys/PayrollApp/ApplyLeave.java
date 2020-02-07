@@ -1,25 +1,23 @@
-package com.chainsys.PayrollApp.daoimplements;
+package com.chainsys.PayrollApp;
 
-import java.time.LocalDate;
-import java.util.Scanner;
+import java.util.*;
 
+import com.chainsys.PayrollApp.daoimplements.LeaveApplication;
 import com.chainsys.PayrollApp.model.LeaveApplicationModel;
 
 public class ApplyLeave {
+	static 	Scanner scan = new Scanner(System.in);
 	public String testApplyLeave(String args) throws Exception 
 	{
-		Scanner scan = new Scanner(System.in);
 		LeaveApplication leave = new LeaveApplication();
 		LeaveApplicationModel l = new LeaveApplicationModel();
 		int empId = Integer.parseInt(args);
 		System.out.println("Enter the From Date :");
-		String fromDate = scan.next();
-		l.fromDate = LocalDate.parse(fromDate);
+		l.setFromDate(scan.nextLine());
 		System.out.println("Enter the To Date :");
-		String toDate = scan.next();
-		l.toDate = LocalDate.parse(toDate);
+		l.setToDate(scan.nextLine());
 		System.out.println("Enter the Reason for leave :");
-		l.setReasonForLeave(scan.next());
+		l.setReasonForLeave(scan.nextLine());
 		scan.close();
 		return leave.applyLeave(empId,l);
 	}

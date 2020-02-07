@@ -3,21 +3,27 @@ package com.chainsys.PayrollApp.daoimplements;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.chainsys.PayrollApp.*;
-<<<<<<< HEAD
-=======
-
->>>>>>> 67122e3506ad695fb5d9b8f5b6b8b6789eef1c68
+import com.chainsys.PayrollApp.util.Logger;
 
 public class UserLogin 
 {
-	public static Connection connect() throws Exception 
+	static Logger logger = Logger.getInstance();
+	public static Connection connect() throws SQLException 
 	{
-		Class.forName("oracle.jdbc.driver.OracleDriver");
+		try 
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		}
+		catch(ClassNotFoundException e) 
+		{
+			logger.error(e);
+		}
 		Connection connections = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
 		return connections;
+				
 	}
 
 	public static String login(int EmpId, String password) throws Exception 

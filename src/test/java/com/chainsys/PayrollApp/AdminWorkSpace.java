@@ -42,8 +42,8 @@ public class AdminWorkSpace {
 	}
 	private static void unlockUserAccount() throws Exception {
 		logger.getInput("Enter the id :");
-		a.empId = scan.nextInt();
-		ado.resetPassword(a.empId);
+		a.setEmpId(scan.nextInt());
+		ado.resetPassword(a.getEmpId());
 	}
 	private static void testAddUser() throws Exception
 	{
@@ -54,23 +54,23 @@ public class AdminWorkSpace {
 		else
 		{
 			logger.getInput("Enter the name :");
-			a.empName = scan.next();
+			a.setEmpName(scan.nextLine());
 			logger.getInput("Enter the Designation :");
-			a.designation = scan.next();
+			a.setDesignation(scan.nextLine());
 			logger.getInput("Enter the Employee id :");
-			a.empId = scan.nextInt();
+			a.setEmpId(scan.nextInt());
 			logger.getInput("Enter the mail ID");
-			a.email = scan.next();
+			a.setEmail(scan.nextLine());;
 			logger.getInput("Select option for food Y-Yes  N-No");
-			a.foodFacility = scan.next();
+			a.setFoodFacility(scan.nextLine());
 			logger.getInput("Select option for cab Y-Yes  N-No");
-			a.cabFacility = scan.next();
+			a.setCabFacility(scan.nextLine());
 			logger.getInput(ado.addUsers(a));
 		}
 	}
 	private static void testRemoveUser() throws Exception {
 		logger.getInput("Enter the Employee id :");
-		a.empId = scan.nextInt();
-		logger.getInput(ado.removeUsers(a.empId));
+		a.setEmpId(scan.nextInt());
+		logger.info(ado.removeUsers(a.getEmpId()));
 	}
 }

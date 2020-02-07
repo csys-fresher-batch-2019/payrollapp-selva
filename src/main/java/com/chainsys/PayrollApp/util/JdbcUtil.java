@@ -2,26 +2,31 @@ package com.chainsys.PayrollApp.util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import com.chainsys.PayrollApp.daoimplements.UserLogin;
 
 public class JdbcUtil {
-
-	public static int executeUpdate(String sql, Object... params) throws Exception {
-
-		Connection con = UserLogin.connect();
-		PreparedStatement pst1 = con.prepareStatement(sql);
-		int i = 1;
-		for (Object param : params) {
-			pst1.setObject(i, param);
-			i++;
+	static Logger logger = Logger.getInstance();
+	public static void executeUpdate(String sql, Object... params) throws SQLException {
+		try(Connection con = UserLogin.connect();
+				PreparedStatement pst1 = con.prepareStatement(sql);)
+		{
+			int i = 1;
+			for (Object param : params) {
+				pst1.setObject(i, param);
+				i++;
+			}
+			pst1.executeUpdate();
 		}
-		int rows = pst1.executeUpdate();
-		return rows;
+		catch(Exception e)
+		{
+			logger.error(e);
+		}
 	}
-	public static void main(String[] args) throws Exception {
+/*	public static void main(String[] args) throws Exception {
 		
 	String sql2 = "insert into user_login(emp_id,passwd,designation)values(?,'pass123',?)";
 	int rows1 = JdbcUtil.executeUpdate(sql2 );
-	}
+	}*/
 }

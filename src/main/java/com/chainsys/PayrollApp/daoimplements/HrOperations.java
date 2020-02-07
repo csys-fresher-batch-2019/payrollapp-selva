@@ -13,33 +13,18 @@ public class HrOperations implements HrDAO
 {
 	public String addGrade(int id,int grade) throws Exception
 	{
-		String str;
-		int rows = JdbcUtil.executeUpdate("update employee set performance_grade = ? where emp_id = ?",grade,id);
-		if(rows!=0)
-			str = "Sucessfully updated";
-		else
-			str = "Update Failure";
-		return str;
+		JdbcUtil.executeUpdate("update employee set performance_grade = ? where emp_id = ?",grade,id);
+		return "Sucessfully updated";
 	}	
 	public String addBasepay(int id,int basepay) throws Exception
 	{
-		String str;
-		int rows = JdbcUtil.executeUpdate("update employee set salary = ? where emp_id = ?",basepay,id);
-		if(rows!=0)
-			str = "Sucessfully updated";
-		else
-			str = "Update Failure";
-		return str;	
+		JdbcUtil.executeUpdate("update employee set salary = ? where emp_id = ?",basepay,id);
+		return "Sucessfully updated";	
 	}
 	public String addCredit(int id,int allowance) throws Exception
 	{
-		String str;
-		int rows = JdbcUtil.executeUpdate("update credits set allowance = ? where emp_id = ?", allowance,id);
-		if(rows!=0)
-			str = "Sucessfully updated";
-		else
-			str = "Update Failure";
-		return str;
+		JdbcUtil.executeUpdate("update credits set allowance = ? where emp_id = ?", allowance,id);
+		return "Sucessfully updated";
 	}
 	public ArrayList<HrModel> viewLeaveApplication() throws Exception
 	{

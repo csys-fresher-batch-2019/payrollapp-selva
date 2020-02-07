@@ -3,7 +3,6 @@ package com.chainsys.PayrollApp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.daoimplements.ApplyLeave;
 import com.chainsys.PayrollApp.daoimplements.HrOperations;
 import com.chainsys.PayrollApp.daoimplements.LeaveApplication;
 import com.chainsys.PayrollApp.daoimplements.LogMonitor;
