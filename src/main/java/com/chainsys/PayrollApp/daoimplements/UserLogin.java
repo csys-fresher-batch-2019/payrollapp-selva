@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.chainsys.PayrollApp.util.JdbcUtil;
 import com.chainsys.PayrollApp.util.Logger;
 
 public class UserLogin {
@@ -19,8 +21,7 @@ public class UserLogin {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
 		} catch (Exception e) {
-			logger.error(e);
-			return null;
+			throw new RuntimeException("Unaable to get connection");
 		}
 	}
 
@@ -31,9 +32,8 @@ public class UserLogin {
 				PreparedStatement stmt = con.prepareStatement(sql);) 
 		{
 			stmt.setInt(1,EmpId);
-			try
+			try(ResultSet rs = stmt.executeQuery();)
 			{
-				ResultSet rs = stmt.executeQuery();
 				String res = "activate";
 				String res1 = "wrong password";
 				String res2 = "Not a user";
@@ -66,23 +66,8 @@ public class UserLogin {
 			return null;
 		}
 	}
-	public static boolean UpdatePassword(String newPassword, String conPassword, int EmpId) {
+	public static void UpdatePassword(String newPassword, String conPassword, int EmpId) {
 		String sql = "update user_login set passwd = ?,active = 1 where emp_id = ?";
-		try (Connection con = UserLogin.connect(); PreparedStatement stmt = con.prepareStatement(sql);) 
-		{
-			if (newPassword.equals(conPassword))
-			{
-				stmt.setString(1,newPassword);
-				stmt.setInt(2, EmpId);
-				if (!stmt.execute())
-					return true;
-			}
-		} 
-		catch (SQLException e) 
-		{
-			logger.error(e);
-		}
-		return false;
-
+		JdbcUtil.executeUpdate(sql, newPassword,EmpId);
 	}
 }
