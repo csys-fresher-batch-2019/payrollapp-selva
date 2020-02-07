@@ -3,17 +3,25 @@ package com.chainsys.PayrollApp.daoimplements;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 //import com.chainsys.PayrollApp.util.JdbcUtil;
+import java.sql.SQLException;
+
+import com.chainsys.PayrollApp.util.Logger;
 
 
 public class SaveChanges {
-	public static void doCommit() throws Exception
+	static Logger logger = Logger.getInstance();
+	public static void doCommit()
 	{
-		Connection con = UserLogin.connect();
 		String sql1 = "commit";
-		PreparedStatement pst = con.prepareStatement(sql1);
-		pst.executeUpdate();
-		con.close();
-
+		try{
+			Connection con = UserLogin.connect();
+			PreparedStatement pst = con.prepareStatement(sql1);
+			pst.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+			logger.error(e);
+		}
 	}
 	/*public static void main(String[] args) throws Exception {
 		String sql  = "insert into account_details values(?,?)";

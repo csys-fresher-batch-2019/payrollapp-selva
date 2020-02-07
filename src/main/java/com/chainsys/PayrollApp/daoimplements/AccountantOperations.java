@@ -5,16 +5,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.chainsys.PayrollApp.util.DBExceptions;
-import com.chainsys.PayrollApp.util.ErrorMessages;
 import com.chainsys.PayrollApp.util.JdbcUtil;
 import com.chainsys.PayrollApp.util.Logger;
+
 
 public class AccountantOperations {
 	static Logger logger = Logger.getInstance();
 
-	public String calculatePF() throws DBExceptions {
+	public String calculatePF() {
 		String sql = "select emp_id from deductions";
 		try (Connection con = UserLogin.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
 			try (ResultSet rs = pst.executeQuery();) {
@@ -34,13 +32,13 @@ public class AccountantOperations {
 				}
 			}
 		} catch (SQLException e) {
-			throw new DBExceptions(ErrorMessages.Error);
+			logger.error(e);
 		}
 
 		return "Calculated";
 	}
 
-	public String calculateIncrement() throws DBExceptions {
+	public String calculateIncrement() {
 		String sql = "select emp_id from credits";
 		try (Connection con = UserLogin.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
 			try (ResultSet rs = pst.executeQuery();) {
@@ -61,12 +59,12 @@ public class AccountantOperations {
 				}
 			}
 		}catch (SQLException e) {
-			throw new DBExceptions(ErrorMessages.Error);
+			logger.error(e);
 		}
 
 		return "Calculated";
 	}
-	public String calculatesalary() throws DBExceptions 
+	public String calculatesalary() 
 	{
 		String sql = "select emp_id from final_salary";
 		try(Connection con = UserLogin.connect();
@@ -76,34 +74,41 @@ public class AccountantOperations {
 			{
 				while (rs.next()) 
 				{
-					CallableStatement statement = con.prepareCall("{call calculate_salary(?)}");
-					statement.setInt(1, rs.getInt("emp_id"));
-					statement.execute();
+					try(CallableStatement statement = con.prepareCall("{call calculate_salary(?)}");)
+					{
+						statement.setInt(1, rs.getInt("emp_id"));
+						statement.execute();
+					}
 				}
 			}
 		}
 		catch(SQLException e)
 		{
-			throw new DBExceptions(ErrorMessages.Error);
+			logger.error(e);
 		}
 		return "Calculated";
 	}
 
-	public String markAttendance() throws Exception {
-		Connection con = UserLogin.connect();
+	public String markAttendance() {
 		String sql = "select emp_id from biometrices";
-		PreparedStatement pst = con.prepareStatement(sql);
-		ResultSet rs = pst.executeQuery();
-		while (rs.next()) {
-
-			CallableStatement stmt = con.prepareCall("{call attendance_check(?)}");
-			stmt.setInt(1, rs.getInt("emp_id"));
-			stmt.execute();
+		try(Connection con = UserLogin.connect();
+		PreparedStatement pst = con.prepareStatement(sql);)
+		{
+			try(ResultSet rs = pst.executeQuery();)
+			{
+				while (rs.next()) {
+					try(CallableStatement stmt = con.prepareCall("{call attendance_check(?)}");)
+					{
+						stmt.setInt(1, rs.getInt("emp_id"));
+						stmt.execute();
+					}
+				}
+			}
 		}
-		String query = "update biometrices set swipe_coun = 0";
-		PreparedStatement ps = con.prepareStatement(query);
-		ps.execute();
-		con.close();
+		catch(SQLException e)
+		{
+			logger.error(e);
+		}
 		return "Attandance Noted";
 	}
 }

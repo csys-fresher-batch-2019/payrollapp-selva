@@ -7,9 +7,7 @@ public class AdminModel {
 	private String designation;
 	private String foodFacility;
 	private String cabFacility;
-	private String email;
-	public int leavesTaken;
-	
+	private String email;	
 	
 	public int getEmpId() {
 		return empId;

@@ -3,9 +3,11 @@ package com.chainsys.PayrollApp.daoimplements;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.chainsys.PayrollApp.model.PaySlipModel;
+import com.chainsys.PayrollApp.util.Logger;
 
 /*import org.apache.pdfbox.pdmodel.PDPage;
 
@@ -40,39 +42,39 @@ public class PaySlip {
 
 public class PaySlip
 {
-	public ArrayList<PaySlipModel> EmployeeDetails() throws Exception
+	static Logger logger = Logger.getInstance();
+	public ArrayList<PaySlipModel> EmployeeDetails()
 	{
-		Connection con  = UserLogin.connect();
-		/*String sql = "select emp_id,emp_name,salary,performance_grade," + 
-					"salary_increment,allowance,leaves_taken,loss_of_pay,food_deduction," + 
-					"cab_deduction,provident_fund,salary_to_be_credited from deductions d" + 
-					"inner join employee e  on e.emp_id=d.emp_id and e.active = 1" + 
-					"inner join credits c on e.emp_id=d.emp_id" + 
-					"inner join final_salary s on e.emp_id=d.emp_id";*/
 		String sql = "select emp_id,emp_name,salary,performance_grade,salary_increment,allowance,leaves_taken,loss_of_pay,food_deduction,cab_deduction,provident_fund,salary_to_be_credited from deductions d inner join employee e  on e.emp_id=6001 and d.emp_id=6001 inner join credits c on c.emp_id=6001 inner join final_salary s on s.emp_id=6001";
-
+		try(Connection con  = UserLogin.connect();
 		PreparedStatement pst = con.prepareStatement(sql);
-		pst.executeQuery();
-		ResultSet rs = pst.executeQuery();
-		ArrayList<PaySlipModel> list = new ArrayList<>();
-		while(rs.next())
+		ResultSet rs = pst.executeQuery();)
 		{
-			PaySlipModel pm = new PaySlipModel();
-			pm.setId(rs.getInt("emp_id"));
-			pm.setName(rs.getString("emp_name"));
-			pm.setBasePay(rs.getInt("salary"));
-			pm.setPerformanceGrade(rs.getInt("performance_grade"));
-			pm.setSalaryIncrement(rs.getInt("salary_increment"));
-			pm.setAllowance(rs.getInt("allowance"));
-			pm.setLeavesTaken(rs.getInt("leaves_taken"));
-			pm.setLossOfPay(rs.getInt("loss_of_pay"));
-			pm.setFoodDeduction(rs.getInt("food_deduction"));
-			pm.setCabDeduction(rs.getInt("cab_deduction"));
-			pm.setProvidentFund(rs.getInt("provident_fund"));
-			pm.setSalaryToBeCredited(rs.getInt("salary_to_be_credited"));
-			list.add(pm);
+			ArrayList<PaySlipModel> list = new ArrayList<>();
+			while(rs.next())
+			{
+				PaySlipModel pm = new PaySlipModel();
+				pm.setId(rs.getInt("emp_id"));
+				pm.setName(rs.getString("emp_name"));
+				pm.setBasePay(rs.getInt("salary"));
+				pm.setPerformanceGrade(rs.getInt("performance_grade"));
+				pm.setSalaryIncrement(rs.getInt("salary_increment"));
+				pm.setAllowance(rs.getInt("allowance"));
+				pm.setLeavesTaken(rs.getInt("leaves_taken"));
+				pm.setLossOfPay(rs.getInt("loss_of_pay"));
+				pm.setFoodDeduction(rs.getInt("food_deduction"));
+				pm.setCabDeduction(rs.getInt("cab_deduction"));
+				pm.setProvidentFund(rs.getInt("provident_fund"));
+				pm.setSalaryToBeCredited(rs.getInt("salary_to_be_credited"));
+				list.add(pm);
+			}
+			return list;
 		}
-		con.close();
-		return list;
+		catch(SQLException e)
+		{
+			logger.error(e);
+			return null;
+		}
+		
 	}
 }

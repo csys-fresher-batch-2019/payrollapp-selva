@@ -1,15 +1,13 @@
 package com.chainsys.PayrollApp.daoimplements;
 
-import java.io.IOException;
 import java.util.Properties;
-
 //import javax.activation.DataHandler;
 //import javax.activation.FileDataSource;
 import javax.mail.*;    
 import javax.mail.internet.*;    
 public class SendMailSSL
 {  
-	public static void send(final String from,final String password,String to,String sub,String Msg,int id) throws IOException
+	public static void send(final String from,final String password,String to,String sub,String Msg,int id)
 	{  
 		
 		Properties props = new Properties();    

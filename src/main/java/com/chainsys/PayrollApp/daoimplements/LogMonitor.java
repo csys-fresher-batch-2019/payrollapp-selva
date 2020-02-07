@@ -2,18 +2,24 @@ package com.chainsys.PayrollApp.daoimplements;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.chainsys.PayrollApp.util.Logger;
 
 public class LogMonitor {
-
-	public String swipe(int empId) throws Exception 
+	static Logger logger = Logger.getInstance();
+	public String swipe(int empId) 
 	{
-		Connection con = UserLogin.connect();
-		CallableStatement stmt = con.prepareCall("{call entry_gate(?)}");
-		stmt.setInt(1,empId);
-		boolean update = stmt.execute();
-		if(!update)
-			return empId+" Swipe Success!!!!";
-		else
-			return "Failed!!!";
+		try(Connection con = UserLogin.connect();
+		CallableStatement stmt = con.prepareCall("{call entry_gate(?)}");)
+		{
+			stmt.setInt(1,empId);
+			stmt.execute();
+		}
+		catch(SQLException e)
+		{
+			logger.error(e);
+		}
+		return "Updated";
 	}
 }

@@ -2,13 +2,11 @@ package com.chainsys.PayrollApp.util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 import com.chainsys.PayrollApp.daoimplements.UserLogin;
 
 public class JdbcUtil {
 	static Logger logger = Logger.getInstance();
-	public static void executeUpdate(String sql, Object... params) throws SQLException {
+	public static void executeUpdate(String sql, Object... params) {
 		try(Connection con = UserLogin.connect();
 				PreparedStatement pst1 = con.prepareStatement(sql);)
 		{
