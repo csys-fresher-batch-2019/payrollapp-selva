@@ -6,12 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-<<<<<<< HEAD
 import com.chainsys.PayrollApp.util.Logger;
-=======
 import com.chainsys.PayrollApp.*;
->>>>>>> e799ebf5f2956fa0463c22559ca0643d41bfeed6
-
 public class UserLogin 
 {
 	static Logger logger = Logger.getInstance();
