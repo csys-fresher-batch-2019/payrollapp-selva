@@ -2,10 +2,9 @@ package com.chainsys.PayrollApp.daoimplements;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 import com.chainsys.PayrollApp.util.Logger;
 
 public class UserLogin {
@@ -27,52 +26,60 @@ public class UserLogin {
 
 	public static String login(int EmpId, String password) {
 		String designation = null;
+		String sql = "select * from user_login where emp_id = ?";
 		try (Connection con = UserLogin.connect();
-				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from user_login where emp_id =" + EmpId);) {
-			String res = "activate";
-			String res1 = "wrong password";
-			String res2 = "Not a user";
-			if (rs.next()) {
-				String dbPassword = rs.getString("passwd");
-				int active = rs.getInt("active");
-				designation = rs.getString("designation").toUpperCase();
-
-				if (password.equals(dbPassword)) {
-					if (active == 1)
-						return designation;
+				PreparedStatement stmt = con.prepareStatement(sql);) 
+		{
+			stmt.setInt(1,EmpId);
+			try
+			{
+				ResultSet rs = stmt.executeQuery();
+				String res = "activate";
+				String res1 = "wrong password";
+				String res2 = "Not a user";
+				if (rs.next()) 
+				{
+					String dbPassword = rs.getString("passwd");
+					int active = rs.getInt("active");
+					designation = rs.getString("designation").toUpperCase();
+					if (password.equals(dbPassword)) 
+					{
+						if (active == 1)
+							return designation;
+						else
+							return res;
+					} 
 					else
-						return res;
-
-				} else
-					return res1;// if password not matched
-
-			} else
-				return res2;// if user not found return 3
-		} catch (SQLException e) {
+						return res1;// if password not matched
+				}
+				else
+					return res2;// if user not found return 3
+			}
+			catch(Exception e)
+			{
+				logger.error(e);
+				return null;
+			}
+		} 
+		catch (SQLException e) {
 			logger.error(e);
 			return null;
 		}
 	}
-
-	/*
-	 * public static void goToDesignation(String designation, String[] arg) throws
-	 * Exception { switch(designation) { case "ADMIN": AdminWorkSpace.main(arg);
-	 * break; case "CONSULTANT": ConsultantWorkspace.main(arg); break; case
-	 * "DEVELOPER": DeveloperWorkspace.main(arg); break; case "ACCOUNTANT":
-	 * AccountantWorkSpace.main(arg); break; case "HR": HrWorkSpace.main(arg);
-	 * break; } }return 4;
-	 * 
-	 * }
-	 */
-	public static boolean UpdatePassword(String newPassword, String conPassword, int EmpId) throws Exception {
-		try (Connection con = UserLogin.connect(); Statement stmt = con.createStatement();) {
+	public static boolean UpdatePassword(String newPassword, String conPassword, int EmpId) {
+		String sql = "update user_login set passwd = ?,active = 1 where emp_id = ?";
+		try (Connection con = UserLogin.connect(); PreparedStatement stmt = con.prepareStatement(sql);) 
+		{
 			if (newPassword.equals(conPassword))
-				if (!stmt.execute(
-						"update user_login set passwd = '" + newPassword + "',active = 1 where emp_id = " + EmpId)) {
+			{
+				stmt.setString(1,newPassword);
+				stmt.setInt(2, EmpId);
+				if (!stmt.execute())
 					return true;
-				}
-		} catch (SQLException e) {
+			}
+		} 
+		catch (SQLException e) 
+		{
 			logger.error(e);
 		}
 		return false;

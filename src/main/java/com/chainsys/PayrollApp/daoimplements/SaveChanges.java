@@ -1,15 +1,15 @@
 package com.chainsys.PayrollApp.daoimplements;
 
-import java.sql.Connection;
+/*import java.sql.Connection;
 import java.sql.PreparedStatement;
-//import com.chainsys.PayrollApp.util.JdbcUtil;
+import com.chainsys.PayrollApp.util.JdbcUtil;
 import java.sql.SQLException;
 
 import com.chainsys.PayrollApp.util.Logger;
-
+*/
 
 public class SaveChanges {
-	static Logger logger = Logger.getInstance();
+	/*static Logger logger = Logger.getInstance();
 	public static void doCommit()
 	{
 		String sql1 = "commit";
@@ -23,7 +23,7 @@ public class SaveChanges {
 			logger.error(e);
 		}
 	}
-	/*public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 		String sql  = "insert into account_details values(?,?)";
 		System.out.println(sql);
 		JdbcUtil.executeUpdate(sql, 1001,12345678);

@@ -2,7 +2,6 @@ package com.chainsys.PayrollApp.daoimplements;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import com.chainsys.PayrollApp.util.Logger;
 
 import java.awt.List;
@@ -16,19 +15,21 @@ public class ReadExcel
 {
 	static Logger logger = Logger.getInstance();
 	static String fileName = "credits.xlsx";
+	static FileInputStream excelFile =null;
+	static Workbook workbook;
     public static void AdminData() 
     {
     	try 
         {
-    		FileInputStream excelFile = new FileInputStream(new File(fileName));
-            Workbook workbook = new XSSFWorkbook(excelFile);
+    		excelFile = new FileInputStream(new File(fileName));
+            workbook = new XSSFWorkbook(excelFile);
             Sheet datatypeSheet = workbook.getSheetAt(0);
             Iterator<Row> iterator = datatypeSheet.iterator();
             while (iterator.hasNext()) 
             {
             	Row currentRow = iterator.next();
             	List data = new List();
-            	Object[] p = {};
+            	//Object[] p = {};
                 Iterator<Cell> cellIterator = currentRow.iterator();
                 while (cellIterator.hasNext()) 
                 {
