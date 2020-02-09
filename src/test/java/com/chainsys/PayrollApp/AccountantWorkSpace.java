@@ -1,8 +1,8 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.payrollapp;
 
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.daoimplements.*;
+import com.chainsys.payrollapp.daoimplements.*;
 
 public class AccountantWorkSpace {
 	static 	Scanner scan = new Scanner(System.in);

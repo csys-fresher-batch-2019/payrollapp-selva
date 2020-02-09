@@ -1,4 +1,4 @@
-package com.chainsys.PayrollApp.util;
+package com.chainsys.payrollapp.util;
 
 public class ErrorMessages {
 	

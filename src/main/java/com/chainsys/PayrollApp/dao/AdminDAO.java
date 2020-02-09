@@ -1,6 +1,6 @@
-package com.chainsys.PayrollApp.dao;
+package com.chainsys.payrollapp.dao;
 
-import com.chainsys.PayrollApp.model.*;
+import com.chainsys.payrollapp.model.*;
 public interface AdminDAO {
 	
 	String addUsers(AdminModel a);

@@ -1,4 +1,4 @@
-package com.chainsys.PayrollApp.daoimplements;
+package com.chainsys.payrollapp.daoimplements;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,8 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.chainsys.PayrollApp.util.JdbcUtil;
-import com.chainsys.PayrollApp.util.Logger;
+import com.chainsys.payrollapp.util.JdbcUtil;
+import com.chainsys.payrollapp.util.Logger;
 
 public class UserLogin {
 	private UserLogin() {

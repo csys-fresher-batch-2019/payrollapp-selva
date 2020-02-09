@@ -1,14 +1,14 @@
-package com.chainsys.PayrollApp.daoimplements;
+package com.chainsys.payrollapp.daoimplements;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.chainsys.PayrollApp.dao.*;
-import com.chainsys.PayrollApp.model.*;
-import com.chainsys.PayrollApp.util.JdbcUtil;
-import com.chainsys.PayrollApp.util.Logger;
+import com.chainsys.payrollapp.dao.*;
+import com.chainsys.payrollapp.model.*;
+import com.chainsys.payrollapp.util.JdbcUtil;
+import com.chainsys.payrollapp.util.Logger;
 
 public class AdminOperations implements AdminDAO 
 {
@@ -27,7 +27,7 @@ public class AdminOperations implements AdminDAO
 		
 		insertCreditDetails(a);
 		
-		insertBoiDetails(a);
+		insertBioDetails(a);
 		
 		insertSalaryDetails(a);
 		
@@ -40,7 +40,7 @@ public class AdminOperations implements AdminDAO
 		JdbcUtil.executeUpdate(sql,a.getEmpId());
 	}
 
-	public void insertBoiDetails(AdminModel a)
+	public void insertBioDetails(AdminModel a)
 	{
 		String sql = "insert into biometrices(emp_id,swipe_coun)values(?,0)";
 		JdbcUtil.executeUpdate(sql,a.getEmpId());

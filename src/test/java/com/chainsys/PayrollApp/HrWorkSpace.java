@@ -1,12 +1,12 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.payrollapp;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.daoimplements.HrOperations;
-import com.chainsys.PayrollApp.daoimplements.LeaveApplication;
-import com.chainsys.PayrollApp.daoimplements.LogMonitor;
-import com.chainsys.PayrollApp.model.HrModel;
+import com.chainsys.payrollapp.daoimplements.HrOperations;
+import com.chainsys.payrollapp.daoimplements.LeaveApplication;
+import com.chainsys.payrollapp.daoimplements.LogMonitor;
+import com.chainsys.payrollapp.model.HrModel;
 public class HrWorkSpace {
 	static Scanner scan = new Scanner(System.in);
 	static HrModel hr = new HrModel();

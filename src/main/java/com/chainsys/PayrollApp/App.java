@@ -1,4 +1,4 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.payrollapp;
 
 public class App 
 {

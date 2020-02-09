@@ -1,8 +1,9 @@
-package com.chainsys.PayrollApp.util;
+package com.chainsys.payrollapp.util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import com.chainsys.PayrollApp.daoimplements.UserLogin;
+
+import com.chainsys.payrollapp.daoimplements.UserLogin;
 
 public class JdbcUtil {
 	static Logger logger = Logger.getInstance();

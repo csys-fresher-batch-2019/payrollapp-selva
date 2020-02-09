@@ -1,4 +1,4 @@
-package com.chainsys.PayrollApp.daoimplements;
+package com.chainsys.payrollapp.daoimplements;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.chainsys.PayrollApp.model.PaySlipModel;
-import com.chainsys.PayrollApp.util.Logger;
+import com.chainsys.payrollapp.model.PaySlipModel;
+import com.chainsys.payrollapp.util.Logger;
 
 /*import org.apache.pdfbox.pdmodel.PDPage;
 

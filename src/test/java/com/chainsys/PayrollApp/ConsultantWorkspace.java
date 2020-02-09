@@ -1,9 +1,9 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.payrollapp;
 
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.daoimplements.LogMonitor;
-import com.chainsys.PayrollApp.util.Logger;
+import com.chainsys.payrollapp.daoimplements.LogMonitor;
+import com.chainsys.payrollapp.util.Logger;
 
 public class ConsultantWorkspace {
 	static Logger logger = Logger.getInstance();

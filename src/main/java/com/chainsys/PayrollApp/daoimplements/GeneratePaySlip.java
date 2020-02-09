@@ -1,9 +1,9 @@
-package com.chainsys.PayrollApp.daoimplements;
+package com.chainsys.payrollapp.daoimplements;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import com.chainsys.PayrollApp.model.PaySlipModel;
-import com.chainsys.PayrollApp.util.Logger;
+import com.chainsys.payrollapp.model.PaySlipModel;
+import com.chainsys.payrollapp.util.Logger;
 import com.itextpdf.kernel.pdf.PdfDocument; 
 import com.itextpdf.kernel.pdf.PdfWriter; 
  

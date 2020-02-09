@@ -1,10 +1,10 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.payrollapp;
 
 import java.util.Scanner;
 
-import com.chainsys.PayrollApp.daoimplements.*;
-import com.chainsys.PayrollApp.model.*;
-import com.chainsys.PayrollApp.util.Logger;
+import com.chainsys.payrollapp.daoimplements.*;
+import com.chainsys.payrollapp.model.*;
+import com.chainsys.payrollapp.util.Logger;
 
 public class AdminWorkSpace {
 	static Scanner scan = new Scanner(System.in);

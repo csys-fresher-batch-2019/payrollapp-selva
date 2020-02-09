@@ -1,10 +1,10 @@
-package com.chainsys.PayrollApp.daoimplements;
+package com.chainsys.payrollapp.daoimplements;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.chainsys.PayrollApp.util.Logger;
+import com.chainsys.payrollapp.util.Logger;
 
 public class LogMonitor {
 	static Logger logger = Logger.getInstance();

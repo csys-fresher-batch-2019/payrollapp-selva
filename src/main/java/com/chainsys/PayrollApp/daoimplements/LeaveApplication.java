@@ -1,9 +1,9 @@
-package com.chainsys.PayrollApp.daoimplements;
+package com.chainsys.payrollapp.daoimplements;
 
-import com.chainsys.PayrollApp.model.LeaveApplicationModel;
-import com.chainsys.PayrollApp.model.LeaveApplicationModel.LeaveStatus;
-import com.chainsys.PayrollApp.util.JdbcUtil;
-import com.chainsys.PayrollApp.util.Logger;
+import com.chainsys.payrollapp.model.LeaveApplicationModel;
+import com.chainsys.payrollapp.model.LeaveApplicationModel.LeaveStatus;
+import com.chainsys.payrollapp.util.JdbcUtil;
+import com.chainsys.payrollapp.util.Logger;
 
 public class LeaveApplication {
 	static Logger logger = Logger.getInstance();

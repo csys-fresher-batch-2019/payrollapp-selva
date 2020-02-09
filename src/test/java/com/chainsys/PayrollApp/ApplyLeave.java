@@ -1,9 +1,9 @@
-package com.chainsys.PayrollApp;
+package com.chainsys.payrollapp;
 
 import java.util.*;
 
-import com.chainsys.PayrollApp.daoimplements.LeaveApplication;
-import com.chainsys.PayrollApp.model.LeaveApplicationModel;
+import com.chainsys.payrollapp.daoimplements.LeaveApplication;
+import com.chainsys.payrollapp.model.LeaveApplicationModel;
 
 public class ApplyLeave {
 	static 	Scanner scan = new Scanner(System.in);
