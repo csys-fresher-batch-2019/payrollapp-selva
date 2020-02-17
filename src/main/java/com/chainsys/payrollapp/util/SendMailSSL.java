@@ -1,4 +1,4 @@
-package com.chainsys.payrollapp.daoimplements;
+package com.chainsys.payrollapp.util;
 
 import java.util.Properties;
 //import javax.activation.DataHandler;

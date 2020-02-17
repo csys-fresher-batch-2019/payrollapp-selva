@@ -1,6 +1,10 @@
 package com.chainsys.payrollapp.model;
 
 public class AdminModel {
+	public enum FoodandCab
+	{
+		Y,N
+	}
 
 	private int empId;
 	private String empName;

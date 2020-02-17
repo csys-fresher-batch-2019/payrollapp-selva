@@ -3,7 +3,7 @@ package com.chainsys.payrollapp;
 
 import java.util.Scanner;
 
-import com.chainsys.payrollapp.daoimplements.UserLogin;
+import com.chainsys.payrollapp.daoimplements.Login;
 import com.chainsys.payrollapp.util.Logger;
 
 public class LoginPage 
@@ -18,7 +18,7 @@ public class LoginPage
 			int EmpId = obj.nextInt();
 			logger.getInput("Enter the Password : ");
 			String password = obj.next();
-			String result = UserLogin.login(EmpId, password);
+			String result = Login.login(EmpId, password);
 			String[] arg = {""+EmpId};
 			if(result.equals("activate"))
 			{
@@ -26,7 +26,7 @@ public class LoginPage
 				String newPassword = obj.next();
 				logger.getInput("Confirm new Password : ");
 				String conPassword = obj.next();
-				UserLogin.UpdatePassword(newPassword,conPassword,EmpId);
+				Login.UpdatePassword(newPassword,conPassword,EmpId);
 			}
 			else if(result.equals("wrong password"))
 				logger.info("Incorrect Password. If you Forgot your password Contact Your Admin ! ");

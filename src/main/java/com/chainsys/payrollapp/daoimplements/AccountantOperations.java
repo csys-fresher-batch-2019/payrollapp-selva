@@ -6,16 +6,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.chainsys.payrollapp.dao.AccountantDAO;
+import com.chainsys.payrollapp.util.Connections;
 import com.chainsys.payrollapp.util.JdbcUtil;
 import com.chainsys.payrollapp.util.Logger;
 
 
-public class AccountantOperations {
+public class AccountantOperations implements AccountantDAO {
 	static Logger logger = Logger.getInstance();
 
-	public String calculatePF() {
+	public int calculatePF() throws ClassNotFoundException  {
 		String sql = "select emp_id from deductions";
-		try (Connection con = UserLogin.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
+		int rows = 0;
+		try (Connection con = Connections.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
 			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
 					String sql1 = "select salary from employee where emp_id = ?";
@@ -26,34 +29,39 @@ public class AccountantOperations {
 								int salary = prs.getInt("salary");
 								int PFund = (int) (salary * (0.15));
 								String query = "update deductions set provident_fund = ? where emp_id = ?";
-								JdbcUtil.executeUpdate(query, PFund, rs.getInt("emp_id"));
+								rows = JdbcUtil.executeUpdate(query, PFund, rs.getInt("emp_id"));
 							}
 						}
+						catch(SQLException e)
+						{
+							throw new RuntimeException("Unable to get connection");						}
 					}
 				}
 			}
 		} catch (SQLException e) {
-			logger.error(e);
+			throw new RuntimeException("Unable to get connection");
 		}
 
-		return "Calculated";
+		return rows;
 	}
 
-	public String calculateIncrement() {
+	public int calculateIncrement() throws Exception {
 		String sql = "select emp_id from credits";
-		try (Connection con = UserLogin.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
+		int rows = 0;
+		try (Connection con = Connections.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
 			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
 					String sql1 = "select performance_grade,salary from employee where emp_id = ?";
 					try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
-						pst1.setInt(1, rs.getInt("emp_id"));
+						int empId = rs.getInt("emp_id");
+						pst1.setInt(1, empId);
 						try (ResultSet prs = pst1.executeQuery();) {
 							while (prs.next()) {
 								int salary = prs.getInt("salary");
 								int inc = (int)(salary * (0.2));
 								int increment = (prs.getInt("performance_grade") * inc);
 								String query = "update credits set salary_increment = ? where emp_id = ?";
-								JdbcUtil.executeUpdate(query, increment, rs.getInt("emp_id"));
+								rows = JdbcUtil.executeUpdate(query, increment, empId);
 
 							}
 						}
@@ -61,15 +69,16 @@ public class AccountantOperations {
 				}
 			}
 		}catch (SQLException e) {
-			logger.error(e);
-		}
+			throw new RuntimeException("Unable to get connection");		
+			}
 
-		return "Calculated";
+		return rows;
 	}
-	public String calculatesalary() 
+	public int calculatesalary() throws Exception 
 	{
 		String sql = "select emp_id from final_salary";
-		try(Connection con = UserLogin.connect();
+		int rows = 0;
+		try(Connection con = Connections.connect();
 		PreparedStatement pst = con.prepareStatement(sql);)
 		{
 			try(ResultSet rs = pst.executeQuery();)
@@ -79,21 +88,22 @@ public class AccountantOperations {
 					try(CallableStatement statement = con.prepareCall("{call calculate_salary(?)}");)
 					{
 						statement.setInt(1, rs.getInt("emp_id"));
-						statement.execute();
+						rows = statement.executeUpdate();
 					}
 				}
 			}
 		}
 		catch(SQLException e)
 		{
-			logger.error(e);
-		}
-		return "Calculated";
+			throw new RuntimeException("Unable to get connection");		
+			}
+		return rows;
 	}
 
-	public String markAttendance() {
+	public int markAttendance() throws Exception  {
 		String sql = "select emp_id from biometrices";
-		try(Connection con = UserLogin.connect();
+		int rows = 0;
+		try(Connection con = Connections.connect();
 		PreparedStatement pst = con.prepareStatement(sql);)
 		{
 			try(ResultSet rs = pst.executeQuery();)
@@ -102,15 +112,21 @@ public class AccountantOperations {
 					try(CallableStatement stmt = con.prepareCall("{call attendance_check(?)}");)
 					{
 						stmt.setInt(1, rs.getInt("emp_id"));
-						stmt.execute();
+						rows = stmt.executeUpdate();
 					}
 				}
 			}
 		}
 		catch(SQLException e)
 		{
-			logger.error(e);
+			throw new RuntimeException("Unable to get connection");
 		}
-		return "Attandance Noted";
+		return rows;
+	}
+	
+	public int GeneratePaySlip() throws Exception {
+		PaySlip gp = new PaySlip();
+		int workDone = gp.EmployeeDetails();
+		return workDone;
 	}
 }

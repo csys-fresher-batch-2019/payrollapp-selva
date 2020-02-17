@@ -44,8 +44,8 @@ public class AccountantWorkSpace {
 	}
 
 	private static void testGeneratePaySlip() throws Exception {
-		GeneratePaySlip gp = new GeneratePaySlip();
-		gp.paySlip();
+		PaySlip gp = new PaySlip();
+		gp.EmployeeDetails();
 		return ;
 	}
 }

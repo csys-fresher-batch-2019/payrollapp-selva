@@ -1,34 +1,24 @@
 package com.chainsys.payrollapp.daoimplements;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.chainsys.payrollapp.util.Connections;
 import com.chainsys.payrollapp.util.JdbcUtil;
 import com.chainsys.payrollapp.util.Logger;
 
-public class UserLogin {
-	private UserLogin() {
-		throw new IllegalStateException("Utility class");
-	}
-
+public class Login 
+{
 	static Logger logger = Logger.getInstance();
 
-	public static Connection connect() {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "system", "oracle");
-		} catch (Exception e) {
-			throw new RuntimeException("Unaable to get connection");
-		}
-	}
 
-	public static String login(int EmpId, String password) {
+	public static String login(int EmpId, String password) throws ClassNotFoundException 
+	{
 		String designation = null;
 		String sql = "select * from user_login where emp_id = ?";
-		try (Connection con = UserLogin.connect();
+		try (Connection con = Connections.connect();
 				PreparedStatement stmt = con.prepareStatement(sql);) 
 		{
 			stmt.setInt(1,EmpId);
@@ -57,17 +47,18 @@ public class UserLogin {
 			}
 			catch(Exception e)
 			{
-				logger.error(e);
-				return null;
+				throw new RuntimeException(e);
 			}
 		} 
-		catch (SQLException e) {
-			logger.error(e);
-			return null;
+		catch (SQLException e) 
+		{
+			throw new RuntimeException(e);
 		}
 	}
-	public static void UpdatePassword(String newPassword, String conPassword, int EmpId) {
+	public static int UpdatePassword(String newPassword, String conPassword, int EmpId) {
 		String sql = "update user_login set passwd = ?,active = 1 where emp_id = ?";
-		JdbcUtil.executeUpdate(sql, newPassword,EmpId);
+		int rows = JdbcUtil.executeUpdate(sql, newPassword,EmpId);
+		return rows;
 	}
+
 }

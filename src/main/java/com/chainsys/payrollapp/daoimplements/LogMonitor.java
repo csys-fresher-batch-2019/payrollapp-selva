@@ -3,23 +3,24 @@ package com.chainsys.payrollapp.daoimplements;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import com.chainsys.payrollapp.util.Connections;
 
-import com.chainsys.payrollapp.util.Logger;
 
 public class LogMonitor {
-	static Logger logger = Logger.getInstance();
-	public String swipe(int empId) 
+	
+	public int swipe(int empId) throws ClassNotFoundException 
 	{
-		try(Connection con = UserLogin.connect();
+		int rows = 0;
+		try(Connection con = Connections.connect();
 		CallableStatement stmt = con.prepareCall("{call entry_gate(?)}");)
 		{
 			stmt.setInt(1,empId);
-			stmt.execute();
+			rows = stmt.executeUpdate();
 		}
 		catch(SQLException e)
 		{
-			logger.error(e);
+			throw new RuntimeException(e);
 		}
-		return "Updated";
+		return rows;
 	}
 }

@@ -7,31 +7,35 @@ import java.util.ArrayList;
 
 import com.chainsys.payrollapp.dao.HrDAO;
 import com.chainsys.payrollapp.model.HrModel;
+import com.chainsys.payrollapp.util.Connections;
 import com.chainsys.payrollapp.util.JdbcUtil;
 import com.chainsys.payrollapp.util.Logger;
 
 public class HrOperations implements HrDAO
 {
 	static Logger logger = Logger.getInstance();
-	public String addGrade(int id,int grade)
+	public int addGrade(int id,int grade)
 	{
-		JdbcUtil.executeUpdate("update employee set performance_grade = ? where emp_id = ?",grade,id);
-		return "Sucessfully updated";
+		int rows = 0;
+		rows = JdbcUtil.executeUpdate("update employee set performance_grade = ? where emp_id = ?",grade,id);
+		return rows;
 	}	
-	public String addBasepay(int id,int basepay)
+	public int addBasepay(int id,int basepay)
 	{
-		JdbcUtil.executeUpdate("update employee set salary = ? where emp_id = ?",basepay,id);
-		return "Sucessfully updated";	
+		int rows = 0;
+		rows = JdbcUtil.executeUpdate("update employee set salary = ? where emp_id = ?",basepay,id);
+		return rows;	
 	}
-	public String addCredit(int id,int allowance) 
+	public int addCredit(int id,int allowance) 
 	{
-		JdbcUtil.executeUpdate("update credits set allowance = ? where emp_id = ?", allowance,id);
-		return "Sucessfully updated";
+		int rows = 0;
+		rows = JdbcUtil.executeUpdate("update credits set allowance = ? where emp_id = ?", allowance,id);
+		return rows;
 	}
 	public ArrayList<HrModel> viewLeaveApplication() 
 	{
-		String sql = "select emp_id,from_leave_date,to_leave_date,reason from leave_info where  status = 'PENDING' ";
-		try(Connection con = UserLogin.connect();
+		String sql = "select * from leave_info where status = 'PENDING' ";
+		try(Connection con = Connections.connect();
 		PreparedStatement pst = con.prepareStatement(sql);
 		ResultSet rs = pst.executeQuery();)
 		{
@@ -47,12 +51,9 @@ public class HrOperations implements HrDAO
 			}
 			return leaveDetails;
 		}
-		
 		catch(Exception e)
 		{
-			logger.error(e);
-			return null;
+			throw new RuntimeException(e);
 		}
-		
 	}
 }

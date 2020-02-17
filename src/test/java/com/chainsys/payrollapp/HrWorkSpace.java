@@ -61,7 +61,6 @@ public class HrWorkSpace {
 			System.out.println("Enter Id :");
 			hr.setId(scan.nextInt());
 			System.out.println(LeaveApplication.Status(hr.getID(),option));
-			//System.out.println(list);
 	}
 
 	private static int testAddCredits() throws Exception {
