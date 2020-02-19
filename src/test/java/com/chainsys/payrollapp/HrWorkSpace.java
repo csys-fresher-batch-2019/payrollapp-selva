@@ -2,15 +2,10 @@ package com.chainsys.payrollapp;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import org.jdbi.v3.core.Jdbi;
-
-import com.chainsys.payrollapp.dao.HrDAO;
 import com.chainsys.payrollapp.daoimplements.HrOperations;
 import com.chainsys.payrollapp.daoimplements.LeaveApplication;
 import com.chainsys.payrollapp.daoimplements.LogMonitor;
 import com.chainsys.payrollapp.model.HrModel;
-import com.chainsys.payrollapp.util.Connections;
 public class HrWorkSpace {
 	static Scanner scan = new Scanner(System.in);
 	static HrModel hr = new HrModel();
