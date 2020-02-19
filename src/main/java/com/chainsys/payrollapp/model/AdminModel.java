@@ -12,7 +12,14 @@ public class AdminModel {
 	private String foodFacility;
 	private String cabFacility;
 	private String email;	
+	private String pan;
 	
+	public String getPan() {
+		return pan;
+	}
+	public void setPan(String pan) {
+		this.pan = pan;
+	}
 	public int getEmpId() {
 		return empId;
 	}

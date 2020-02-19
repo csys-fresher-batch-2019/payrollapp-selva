@@ -6,15 +6,19 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter; 
 import com.itextpdf.layout.Document; 
 import com.itextpdf.layout.element.Table;
+//import java.io.OutputStream;
+//import java.io.FileOutputStream;
+//import java.io.File;
 
 public class GeneratePaySlip 
 {
 	public  int paySlip(PaySlipModel obj,int id) throws Exception 
 	{ 
-		String file = "sal"+id+".pdf"; 
+		//OutputStream file = new FileOutputStream(new File("D:\\Test.pdf"));
+		String salaryFile = "D:/eclipse/payroll-web/src/main/webapp/salary"+id+".pdf"; 
 	    try
 	    {
-	    	PdfDocument pdfDoc = new PdfDocument(new PdfWriter(file)); 
+	    	PdfDocument pdfDoc = new PdfDocument(new PdfWriter(salaryFile)); 
 		    Document doc = new Document(pdfDoc);
 				Table table = new Table(2);  
 				table.addHeaderCell("-CATEGORY-");
@@ -54,7 +58,7 @@ public class GeneratePaySlip
 	      table.addCell("Raju"); 
 	      doc.add(table);*/
 	    }
-	    catch(FileNotFoundException e)
+	    catch(Exception e)
 	    {
 	    	throw new RuntimeException(e);
 	    }

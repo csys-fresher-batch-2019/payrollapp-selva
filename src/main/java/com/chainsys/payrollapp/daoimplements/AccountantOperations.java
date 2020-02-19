@@ -21,12 +21,12 @@ public class AccountantOperations implements AccountantDAO {
 		try (Connection con = Connections.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
 			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
-					String sql1 = "select salary from employee where emp_id = ?";
+					String sql1 = "select basepay from employee where emp_id = ?";
 					try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
 						pst1.setInt(1, rs.getInt("emp_id"));
 						try (ResultSet prs = pst1.executeQuery();) {
 							while (prs.next()) {
-								int salary = prs.getInt("salary");
+								int salary = prs.getInt("basepay");
 								int PFund = (int) (salary * (0.15));
 								String query = "update deductions set provident_fund = ? where emp_id = ?";
 								rows = JdbcUtil.executeUpdate(query, PFund, rs.getInt("emp_id"));
@@ -51,13 +51,13 @@ public class AccountantOperations implements AccountantDAO {
 		try (Connection con = Connections.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
 			try (ResultSet rs = pst.executeQuery();) {
 				while (rs.next()) {
-					String sql1 = "select performance_grade,salary from employee where emp_id = ?";
+					String sql1 = "select performance_grade,basepay from employee where emp_id = ?";
 					try (PreparedStatement pst1 = con.prepareStatement(sql1);) {
 						int empId = rs.getInt("emp_id");
 						pst1.setInt(1, empId);
 						try (ResultSet prs = pst1.executeQuery();) {
 							while (prs.next()) {
-								int salary = prs.getInt("salary");
+								int salary = prs.getInt("basepay");
 								int inc = (int)(salary * (0.2));
 								int increment = (prs.getInt("performance_grade") * inc);
 								String query = "update credits set salary_increment = ? where emp_id = ?";
@@ -128,5 +128,11 @@ public class AccountantOperations implements AccountantDAO {
 		PaySlip gp = new PaySlip();
 		int workDone = gp.EmployeeDetails();
 		return workDone;
+	}
+
+
+	public int sendPayslip() {
+		
+		return 1;
 	}
 }

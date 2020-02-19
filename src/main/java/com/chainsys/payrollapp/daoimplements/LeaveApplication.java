@@ -13,27 +13,29 @@ import com.chainsys.payrollapp.util.SendMailSSL;
 
 public class LeaveApplication {
 	static Logger logger = Logger.getInstance();
-	public String applyLeave(int empId, LeaveApplicationModel l)
+	public int applyLeave(int empId, LeaveApplicationModel l)
 	{
-		String sql = "insert into leave_info(emp_id,from_leave_date,to_leave_date,reason)values(?,to_date(?,'yyyy/MM/dd'),to_date(?,'yyyy/MM/dd'),?)";
+		String sql = "insert into leave_info(emp_id,from_leave_date,to_leave_date,reason)values(?,to_date(?,'MM/dd/yyyy'),to_date(?,'MM/dd/yyyy'),?)";
+		int rows = 0;
 		Object[] params = {empId,l.getFromDate(),l.getToDate(),l.getReasonForLeave()};
 		try
 		{
-			JdbcUtil.executeUpdate(sql,params);
+			rows = JdbcUtil.executeUpdate(sql,params);
 		}
 		catch(Exception e)
 		{
 			logger.error(e);
 		}
-		return "Applied";
+		return rows;
 	}
 
-	public static String Status(int eid, int option) {
+	public static int Status(int eid, int option) {
 		String sql = "update leave_info set status = ? where emp_id = ? and status = 'PENDING'";
 		String query = "update employee set leaves_taken = leaves_taken+1,total_leaves = total_leaves-1 where emp_id = ?";
 		String sql1 = "select email from employee where emp_id = ?";
 		String status = "";
 		String email = "";
+		int rows = 0;
 		try(Connection con = Connections.connect();
 			PreparedStatement pst = con.prepareStatement(sql1);)
 		{
@@ -47,15 +49,15 @@ public class LeaveApplication {
 				status = LeaveStatus.APPROVED.toString();
 			else 
 				status = LeaveStatus.NOT_APPROVED.toString();
-			JdbcUtil.executeUpdate(sql,status,eid);
-			JdbcUtil.executeUpdate(query,eid);
+			rows = JdbcUtil.executeUpdate(sql,status,eid);
+			rows = JdbcUtil.executeUpdate(query,eid);
 			SendMailSSL.send("payrollmavenproject@gmail.com","Pass1234*",email,"Leave Application "+status,status,eid);
 		}
 		catch(Exception e)
 		{
 			logger.error(e);
 		}
-		return "Updated";
+		return rows;
 	}
 	
 

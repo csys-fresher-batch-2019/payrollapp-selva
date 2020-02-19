@@ -7,8 +7,9 @@ import com.chainsys.payrollapp.model.LeaveApplicationModel;
 
 public class ApplyLeave {
 	static 	Scanner scan = new Scanner(System.in);
-	public String testApplyLeave(String args) throws Exception 
+	public int testApplyLeave(String args) throws Exception 
 	{
+		int rows = 0;
 		LeaveApplication leave = new LeaveApplication();
 		LeaveApplicationModel l = new LeaveApplicationModel();
 		int empId = Integer.parseInt(args);
@@ -19,6 +20,7 @@ public class ApplyLeave {
 		System.out.println("Enter the Reason for leave :");
 		l.setReasonForLeave(scan.nextLine());
 		scan.close();
-		return leave.applyLeave(empId,l);
+		rows = leave.applyLeave(empId,l);
+		return rows; 
 	}
 }

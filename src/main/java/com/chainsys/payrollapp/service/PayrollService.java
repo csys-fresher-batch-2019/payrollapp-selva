@@ -1,30 +1,47 @@
 package com.chainsys.payrollapp.service;
 
+import java.util.ArrayList;
+
 import com.chainsys.payrollapp.dao.*;
 import com.chainsys.payrollapp.daoimplements.*;
 import com.chainsys.payrollapp.model.AdminModel;
+import com.chainsys.payrollapp.model.HrModel;
+import com.chainsys.payrollapp.model.LeaveApplicationModel;
 
 public class PayrollService {
 	private AdminDAO ado = new AdminOperations();
 	private AccountantDAO aco = new AccountantOperations();
 	private HrDAO hdo = new HrOperations();
+	private LogMonitor lm = new LogMonitor();
+	private LeaveApplication leave = new LeaveApplication();
 	
 	//Admin Services
-	public void addEmployeeDetails(AdminModel a)
+	public int addEmployeeDetails(AdminModel a)
 	{
-		ado.addUsers(a);
+		int rows = 0;
+		rows = ado.addUsers(a);
+		return rows;
 	}
-	public void deleteEmployee(AdminModel a)
+	public int deleteEmployee(int id)
 	{
-		ado.removeUsers(9001);
+		int rows = ado.removeUsers(id);
+		return rows;
 	}
-	public void calculateLOP(AdminModel a) throws ClassNotFoundException
+	public int calculateLOP() throws ClassNotFoundException
 	{
-		ado.calculateLOP();
+		int rows = ado.calculateLOP();
+		return rows;
 	}
-	public void unlockUserAccount(AdminModel a)
+	public int unlockUserAccount(int id)
 	{
-		ado.resetPassword(9001);
+		int rows = ado.resetPassword(id);
+		return rows;
+	}
+	public ArrayList<AdminModel> display() throws Exception
+	{
+		ArrayList<AdminModel> list = new ArrayList<>();
+		list = ado.viewDetails();
+		return list;
 	}
 	
 	
@@ -32,17 +49,17 @@ public class PayrollService {
 	
 	public int calculatePF() throws Exception
 	{
-		int rows = hdo.addBasepay(1, 2);
+		int rows = aco.calculatePF();
 		return rows;
 	}
 	public int calculateIncrement() throws Exception
 	{
-		int rows = hdo.addCredit(1, 2);
+		int rows = aco.calculateIncrement();
 		return rows;
 	}
 	public int  markAttandence() throws Exception
 	{
-		int rows = hdo.addGrade(1, 2);
+		int rows = aco.markAttendance();
 		return rows;
 	}
 	public int calculateSalary() throws Exception
@@ -58,26 +75,62 @@ public class PayrollService {
 
 	// HR Services
 	
-	public int addGrade() throws Exception
+	public int addGrade(int id,int grade) throws Exception
 	{
-		int rows = aco.GeneratePaySlip();
+		int rows = hdo.addGrade(id, grade);
 		return rows;
 	}
-	public int addBasepay() throws Exception
+	public int addBasepay(int id,int basepay) throws Exception
 	{
-		int rows = aco.GeneratePaySlip();
+		int rows = hdo.addBasepay(id,basepay);
 		return rows;
 	}
-	public int addCredit() throws Exception
+	public int addCredit(int id,int allowance) throws Exception
 	{
-		int rows = aco.GeneratePaySlip();
+		int rows = hdo.addCredit(allowance,id);
 		return rows;
 	}
-	public int viewLeaveApplication()
+	public ArrayList<HrModel> viewLeaveApplication() 
 	{
-		return 0;
+		ArrayList<HrModel> list = new ArrayList<HrModel>(); 
+		list = hdo.viewLeaveApplication();
+		return list;
 	}
 	
+	//Swipe
 	
+	public int swipe(int id)
+	{
+		int rows = 0;
+		try {
+			rows = lm.swipe(id);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		return rows;
+	}
+	
+	//Leaveform
+	
+	public int applyLeave(int id,LeaveApplicationModel leavemodel)
+	{
+		int rows = leave.applyLeave(id, leavemodel);
+		return rows;
+	}
+	
+	//Leave
+	
+	public int acceptLeave(int id)
+	{
+		int rows = 0;
+		rows = LeaveApplication.Status(id,1);
+		return rows;
+	}
+	public int RejectLeave(int id)
+	{
+		int rows = 0;
+		rows = LeaveApplication.Status(id,2);
+		return rows;
+	}
 
 }

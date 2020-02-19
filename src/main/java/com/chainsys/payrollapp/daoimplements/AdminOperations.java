@@ -1,5 +1,7 @@
 package com.chainsys.payrollapp.daoimplements;
 
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,49 +20,72 @@ public class AdminOperations implements AdminDAO
 	public int addUsers(AdminModel a)
 	{
 		String sql = "insert into employee(emp_id,emp_name,designation,"+
-		"leaves_taken,salary,total_leaves,food,cab_facility,email,experience)"+
-		"values(?,?,?,0,0,12,?,?,?,0)";
-		Object[] params = { a.getEmpId() , a.getEmpName(), a.getDesignation(),a.getFoodFacility(),a.getCabFacility(),a.getEmail()};
-		int rows = JdbcUtil.executeUpdate(sql,params);
+		" email,leaves_taken,basepay,total_leaves,food_subscription,cab_subscription,pan_number)"+
+		"values(emp_id_seq.nextval,?,?,?,0,0,12,?,?,?)";
+		Object[] params = {a.getEmpName(), a.getDesignation(),a.getEmail(),a.getFoodFacility(),a.getCabFacility(),a.getPan()};
+		JdbcUtil.executeUpdate(sql,params);
+		int id=0;
+		try {
+			id = selectId();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		insertDeductionDetails(id,a);
 		
-		insertDeductionDetails(a);
+		insertLoginDetails(id,a.getDesignation());
 		
-		insertLoginDetails(a);
+		insertCreditDetails(id);
 		
-		insertCreditDetails(a);
+		insertBioDetails(id);
 		
-		insertBioDetails(a);
+		insertSalaryDetails(id);
 		
-		insertSalaryDetails(a);
-		
-		return rows;
+		return id;
 	}
-
-	public void insertSalaryDetails(AdminModel a)
+	public int selectId() throws SQLException
+	{
+		String sql = "select max(emp_id) as current_id from employee";
+		int id = 0;
+		try
+		{
+			Connection con = Connections.connect();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next())
+			{
+				id = rs.getInt("current_id");
+				System.out.println(id);
+			}
+		}
+		catch(SQLException e)
+		{
+			throw new SQLException(e);
+		}
+		return id;
+	}
+	public void insertSalaryDetails(int id)
 	{
 		String sql = "insert into final_salary(emp_id)values(?)";
-		JdbcUtil.executeUpdate(sql,a.getEmpId());
+		JdbcUtil.executeUpdate(sql,id);
 	}
-
-	public void insertBioDetails(AdminModel a)
+	public void insertBioDetails(int id)
 	{
-		String sql = "insert into biometrices(emp_id,swipe_coun)values(?,0)";
-		JdbcUtil.executeUpdate(sql,a.getEmpId());
+		String sql = "insert into biometrices(emp_id,swipe_count)values(?,0)";
+		JdbcUtil.executeUpdate(sql,id);
 	}
-
-	public void insertCreditDetails(AdminModel a)
+	public void insertCreditDetails(int id)
 	{
 		String sql = "insert into credits(emp_id)values(?)";
-		JdbcUtil.executeUpdate(sql,a.getEmpId());
+		JdbcUtil.executeUpdate(sql,id);
 	}
 
-	public void insertLoginDetails(AdminModel a) 
+	public void insertLoginDetails(int id,String a) 
 	{
 		String sql = "insert into user_login(emp_id,passwd,designation)values(?,'pass123',?)";
-		JdbcUtil.executeUpdate(sql, a.getEmpId() , a.getDesignation() );
+		JdbcUtil.executeUpdate(sql,id,a);
 	}
 
-	public int insertDeductionDetails(AdminModel a ) 
+	public int insertDeductionDetails(int id,AdminModel a) 
 	{
 		String sql = "insert into deductions(emp_id,food_deduction,cab_deduction,loss_of_pay,provident_fund)values(?,?,?,0,0)";
 		int foodDeduction = 0;
@@ -81,7 +106,7 @@ public class AdminOperations implements AdminDAO
 		else
 			a.setCabFacility(FoodandCab.N.toString());
 		try {
-			rows = JdbcUtil.executeUpdate(sql,a.getEmpId(),foodDeduction,cabDeduction);
+			rows = JdbcUtil.executeUpdate(sql,id,foodDeduction,cabDeduction);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -100,8 +125,7 @@ public class AdminOperations implements AdminDAO
 		int rows = 0;
 		try {
 			for(String query:sql) {
-				JdbcUtil.executeUpdate(query,empId);
-				rows = rows+1;
+				rows = rows+JdbcUtil.executeUpdate(query,empId);
 			}
 		} 
 		catch (Exception e) {
@@ -119,7 +143,7 @@ public class AdminOperations implements AdminDAO
 		{
 			while(rs.next())
 			{
-				String sql1 = "select leaves_taken,salary from employee where emp_id = ?";
+				String sql1 = "select leaves_taken,basepay from employee where emp_id = ?";
 				
 				try(PreparedStatement pst1 = con.prepareStatement(sql1);)
 				{
@@ -130,7 +154,7 @@ public class AdminOperations implements AdminDAO
 						{
 							int lossOfPay = 0;
 							int leaves = prs.getInt("leaves_taken");
-							int salary = prs.getInt("salary");
+							int salary = prs.getInt("basepay");
 							if(leaves>12)
 								lossOfPay = (int)(leaves*(salary/30));
 							String sql2 = "update deductions set loss_of_pay = ? where emp_id = ?";
@@ -152,6 +176,25 @@ public class AdminOperations implements AdminDAO
 		String sql = "update user_login set passwd = 'pass123',active = 0 where emp_id = ?";
 		int rows = JdbcUtil.executeUpdate(sql,empId);
 		return rows;
+	}
+	@Override
+	public ArrayList<AdminModel> viewDetails() throws Exception 
+	{
+		Connection con = Connections.connect();
+		ArrayList<AdminModel> list = new ArrayList<>();
+		String sql = "select * from employee";
+		PreparedStatement pst = con.prepareStatement(sql);
+		ResultSet rs = pst.executeQuery();
+		while(rs.next())
+		{
+			AdminModel ad = new AdminModel();
+			ad.setEmpId(rs.getInt("emp_id"));
+			ad.setEmpName(rs.getString("emp_name"));
+			ad.setEmail(rs.getString("email"));
+			ad.setPan(rs.getString("pan_number"));
+			list.add(ad);
+		}
+		return list;
 	}
 
 

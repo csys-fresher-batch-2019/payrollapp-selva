@@ -1,5 +1,6 @@
 package com.chainsys.payrollapp;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.chainsys.payrollapp.daoimplements.*;
@@ -15,6 +16,7 @@ public class AdminWorkSpace {
 
 	public static void main(String[] arg) throws Exception 
 	{
+		AdminOperations ado1 = new AdminOperations();
 			logger.getInput("Press 1 to Add users \nPress 2 to Remove users \nPress 3 to Calculate LOP to users \nPress 4 to Apply Leave \nPress 5 Swipe \nPress 6 to Unlock user Account \nPress 7 to exit ");
 			logger.info("Enter Your choice : ");
 			int choice = scan.nextInt();
@@ -36,7 +38,8 @@ public class AdminWorkSpace {
 						break;
 				case 6 : unlockUserAccount();
 						break;
-				case 7 :return;
+				case 7 :display();
+						break;
 				default : logger.info("Invalid input");
 						break;
 			}
@@ -58,20 +61,32 @@ public class AdminWorkSpace {
 			a.setEmpName(scan.next());
 			logger.getInput("Enter the Designation :");
 			a.setDesignation(scan.next());
-			logger.getInput("Enter the Employee id :");
-			a.setEmpId(scan.nextInt());
-			logger.getInput("Enter the mail ID");
+			logger.getInput("Enter the Email id :");
 			a.setEmail(scan.next());
+			logger.getInput("Enter the PAN number ");
+			a.setPan(scan.next());
 			logger.getInput("Select option for food Y-Yes  N-No");
 			a.setFoodFacility(scan.next());
 			logger.getInput("Select option for cab Y-Yes  N-No");
 			a.setCabFacility(scan.next());
-			logger.getInput(ado.addUsers(a));
+			logger.getInput("Your Employee id :"+ado.addUsers(a));
 		}
 	}
 	private static void testRemoveUser() throws Exception {
 		logger.getInput("Enter the Employee id :");
 		a.setEmpId(scan.nextInt());
 		logger.info(ado.removeUsers(a.getEmpId()));
+	}
+	private static void display() throws Exception
+	{
+		ArrayList<AdminModel> list = ado.viewDetails();
+		for(AdminModel a:list)
+		{
+			System.out.print(a.getEmpId()+"\t");
+			System.out.print(a.getEmpName());
+			System.out.print(a.getEmail());
+			System.out.print(a.getPan());
+			System.out.println();
+		}
 	}
 }

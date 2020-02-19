@@ -3,14 +3,20 @@ package com.chainsys.payrollapp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.jdbi.v3.core.Jdbi;
+
+import com.chainsys.payrollapp.dao.HrDAO;
 import com.chainsys.payrollapp.daoimplements.HrOperations;
 import com.chainsys.payrollapp.daoimplements.LeaveApplication;
 import com.chainsys.payrollapp.daoimplements.LogMonitor;
 import com.chainsys.payrollapp.model.HrModel;
+import com.chainsys.payrollapp.util.Connections;
 public class HrWorkSpace {
 	static Scanner scan = new Scanner(System.in);
 	static HrModel hr = new HrModel();
 	static HrOperations hro = new HrOperations();
+	//static Jdbi jdbi = Connections.getJdbi();
+	//static HrDAO hrdao = jdbi.onDemand(HrDAO.class);
 
 	public static void main(String[] arg)throws Exception 
 	{
@@ -64,12 +70,13 @@ public class HrWorkSpace {
 	}
 
 	private static int testAddCredits() throws Exception {
+		int rows = 0;
 		System.out.print("Enter the employee id : ");
 		hr.setId(scan.nextInt());
 		System.out.print("Enter the allowance employee "+hr.getID()+" : ");
 		hr.setAllowance(scan.nextInt());
-		System.out.println(hro.addCredit(hr.getID(),hr.getAllowance()));
-		return 1;
+		rows = hro.addCredit(hr.getAllowance(), hr.getID());
+		return rows;
 	}
 
 	private static int testAddBasepay() throws Exception {

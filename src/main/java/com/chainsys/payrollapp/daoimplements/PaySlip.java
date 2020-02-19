@@ -14,7 +14,7 @@ public class PaySlip
 	public int EmployeeDetails() throws Exception
 	{
 		GeneratePaySlip gen = new GeneratePaySlip();
-		String query = "select emp_id from employee where active = 1";
+		String query = "select emp_id from employee";
 		int workDone = 0;
 		try(Connection con  = Connections.connect();
 				PreparedStatement pst = con.prepareStatement(query);
@@ -23,11 +23,11 @@ public class PaySlip
 			while(prs.next()) 
 			{
 				int id = prs.getInt("emp_id");
-				String sql = "select emp_id , emp_name , salary , performance_grade ,"+
+				String sql = "select emp_id , emp_name , basepay , performance_grade ,"+
 				" salary_increment , allowance , leaves_taken , loss_of_pay ,"+
 				" food_deduction , cab_deduction , provident_fund ,"+
 				" salary_to_be_credited from deductions d"+
-				"  inner join employee e  on e.emp_id= ?  and e.active = 1"+
+				"  inner join employee e  on e.emp_id= ? "+
 				" inner join credits c on c.emp_id = ? and d.emp_id = ? "+
 				"inner join final_salary s on  s.emp_id= ? ";
 				try(PreparedStatement pstm = con.prepareStatement(sql);)
@@ -43,7 +43,7 @@ public class PaySlip
 							PaySlipModel pm = new PaySlipModel();
 							pm.setId(rs.getInt("emp_id"));
 							pm.setName(rs.getString("emp_name"));
-							pm.setBasePay(rs.getInt("salary"));
+							pm.setBasePay(rs.getInt("basepay"));
 							pm.setPerformanceGrade(rs.getInt("performance_grade"));
 							pm.setSalaryIncrement(rs.getInt("salary_increment"));
 							pm.setAllowance(rs.getInt("allowance"));
