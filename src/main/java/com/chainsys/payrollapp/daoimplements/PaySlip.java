@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 import com.chainsys.payrollapp.model.PaySlipModel;
 import com.chainsys.payrollapp.util.Connections;
 import com.chainsys.payrollapp.util.GeneratePaySlip;
-import com.chainsys.payrollapp.util.Logger;
 
 public class PaySlip
 {
-	static Logger logger = Logger.getInstance();
 	public int EmployeeDetails() throws Exception
 	{
 		GeneratePaySlip gen = new GeneratePaySlip();

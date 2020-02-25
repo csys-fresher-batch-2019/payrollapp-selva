@@ -1,5 +1,6 @@
 package com.chainsys.payrollapp;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +8,7 @@ import com.chainsys.payrollapp.daoimplements.*;
 import com.chainsys.payrollapp.model.*;
 import com.chainsys.payrollapp.util.Logger;
 import com.chainsys.payrollapp.util.ReadExcel;
+import com.chainsys.payrollapp.util.SelectIdUtil;
 
 public class AdminWorkSpace {
 	static Scanner scan = new Scanner(System.in);
@@ -40,9 +42,22 @@ public class AdminWorkSpace {
 						break;
 				case 7 :display();
 						break;
+				case 8: selectId();
+						break;
 				default : logger.info("Invalid input");
 						break;
 			}
+	}
+	private static void selectId() throws SQLException {
+		
+		SelectIdUtil s = new SelectIdUtil(); 
+		ArrayList<Integer> idlist = new ArrayList<>();
+		idlist = s.selectUserId();
+		for(Integer obj:idlist)
+		{
+			System.out.println(obj);
+		}
+		
 	}
 	private static void unlockUserAccount() throws Exception {
 		logger.getInput("Enter the id :");

@@ -13,7 +13,7 @@ public class TestSelect
 		 SelectIdUtil selectid = new SelectIdUtil();
 		 ArrayList<Integer> idlist = new ArrayList<>();
 		    try {
-				idlist = selectid.selectUserId(desg);
+				idlist = selectid.selectUserId();
 				for(Integer obj:idlist)
 				{
 					System.out.println(obj);

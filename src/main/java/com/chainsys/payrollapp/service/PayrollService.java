@@ -4,9 +4,13 @@ import java.util.ArrayList;
 
 import com.chainsys.payrollapp.dao.*;
 import com.chainsys.payrollapp.daoimplements.*;
+import com.chainsys.payrollapp.exceptions.DBExceptions;
 import com.chainsys.payrollapp.model.AdminModel;
 import com.chainsys.payrollapp.model.HrModel;
 import com.chainsys.payrollapp.model.LeaveApplicationModel;
+import com.chainsys.payrollapp.util.ErrorMessages;
+
+import validation.UserDetailValidation;
 
 public class PayrollService {
 	private AdminDAO ado = new AdminOperations();
@@ -16,11 +20,27 @@ public class PayrollService {
 	private LeaveApplication leave = new LeaveApplication();
 	
 	//Admin Services
-	public int addEmployeeDetails(AdminModel a)
+	public int addEmployeeDetails(AdminModel a) throws DBExceptions 
 	{
+		UserDetailValidation user = new UserDetailValidation();
 		int rows = 0;
-		rows = ado.addUsers(a);
-		return rows;
+		boolean result = false;
+		try {
+			result = user.emailValidation(a.getEmail());
+			result = user.panValidation(a.getPan());
+		} catch (DBExceptions e) {
+			throw new DBExceptions(ErrorMessages.Error); 
+		}
+		if(result)
+		{
+			rows = ado.addUsers(a);
+			return rows;
+		}
+		else
+		{
+			return 0;
+		}
+		
 	}
 	public int deleteEmployee(int id)
 	{

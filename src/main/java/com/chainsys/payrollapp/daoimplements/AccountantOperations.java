@@ -7,15 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.chainsys.payrollapp.dao.AccountantDAO;
+import com.chainsys.payrollapp.exceptions.DBExceptions;
 import com.chainsys.payrollapp.util.Connections;
+import com.chainsys.payrollapp.util.ErrorMessages;
 import com.chainsys.payrollapp.util.JdbcUtil;
-import com.chainsys.payrollapp.util.Logger;
 
 
 public class AccountantOperations implements AccountantDAO {
-	static Logger logger = Logger.getInstance();
 
-	public int calculatePF() throws ClassNotFoundException  {
+	public int calculatePF() throws ClassNotFoundException, DBExceptions  {
 		String sql = "select emp_id from deductions";
 		int rows = 0;
 		try (Connection con = Connections.connect(); PreparedStatement pst = con.prepareStatement(sql)) {
@@ -34,7 +34,7 @@ public class AccountantOperations implements AccountantDAO {
 						}
 						catch(SQLException e)
 						{
-							throw new RuntimeException("Unable to get connection");						}
+							throw new DBExceptions(ErrorMessages.Error);						}
 					}
 				}
 			}
@@ -128,11 +128,5 @@ public class AccountantOperations implements AccountantDAO {
 		PaySlip gp = new PaySlip();
 		int workDone = gp.EmployeeDetails();
 		return workDone;
-	}
-
-
-	public int sendPayslip() {
-		
-		return 1;
 	}
 }

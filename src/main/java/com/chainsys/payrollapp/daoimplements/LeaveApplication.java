@@ -45,12 +45,15 @@ public class LeaveApplication {
 			{
 				email = rs.getString("email");
 			}
-			if(option==1) 
+			if(option==1) {
 				status = LeaveStatus.APPROVED.toString();
-			else 
+				rows = JdbcUtil.executeUpdate(sql,status,eid);
+				rows = JdbcUtil.executeUpdate(query,eid);
+			}
+			else {
 				status = LeaveStatus.NOT_APPROVED.toString();
 			rows = JdbcUtil.executeUpdate(sql,status,eid);
-			rows = JdbcUtil.executeUpdate(query,eid);
+			}
 			SendMailSSL.send("payrollmavenproject@gmail.com","Pass1234*",email,"Leave Application "+status,status,eid);
 		}
 		catch(Exception e)
